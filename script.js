@@ -32,15 +32,23 @@ class ListaTodos {
 }
 
 class Todo {
-  constructor(título, utilizador, descrição, dataTérmino, prioridade, activo, notas, tarefas) {
+  constructor(título, utilizador, descrição, dataTérmino, prioridade, estado, notas, tarefas) {
     this.título = título
     this.utilizador = utilizador;
   this.descrição = descrição;
   this.dataTérmino = dataTérmino;
   this.prioridade = prioridade;
-    this.activo = activo;
+    this.estado = estado;
   this.notas = notas;
     this.tarefas = tarefas;
+  }
+  
+  alterarPrioridade(valor) {
+    this.prioridade = valor;
+  }
+  
+  alterarEstado() {
+this.estado == "activo" ? this.estado = "inactivo" : this.estado = "activo";
   }
  
 }
@@ -52,9 +60,9 @@ const listaTodosProjecto1 = new ListaTodos();
 
 const projecto1 = new Projecto("Projecto 1", ["Rui Araújo", "Joaquim Araújo", "Ana Araújo"], listaTodosProjecto1);
 
-const todo1 = new Todo("Todo 1", "Rui Araújo", "descrição", "data", 1, true, "notas", tarefasTodo1);
+const todo1 = new Todo("Todo 1", "Rui Araújo", "descrição", "data", 1, "activo", "notas", tarefasTodo1);
 
-const todo2 = new Todo("Todo 2", "Joaquim Araújo", "descrição", "data", 0, false, "notas", tarefasTodo2);
+const todo2 = new Todo("Todo 2", "Joaquim Araújo", "descrição", "data", 0, "inactivo", "notas", tarefasTodo2);
 
 
 console.log(projecto1);
@@ -77,6 +85,10 @@ console.log(projecto1);
 listaTodosProjecto1.adicionarTodo(todo2);
 console.log(projecto1);
 listaTodosProjecto1.retirarTodo(todo2);
+console.log(projecto1);
+todo1.alterarPrioridade(2);
+console.log(projecto1);
+todo1.alterarEstado();
 console.log(projecto1);
 
 
