@@ -4,6 +4,10 @@ class Projecto {
   this.utilizador = utilizadores;
     this.todos = todos;
   } 
+  
+  alterarTítuloProjecto(novoTítulo) {
+    this.título = novoTítulo;
+  }
 }
 
 class TarefasTodo {
@@ -55,11 +59,11 @@ this.estado == "activo" ? this.estado = "inactivo" : this.estado = "activo";
     this.dataTérmino = data;
   }
   
-  alterarTítulo(novoTítulo) {
+  alterarTítuloToDo(novoTítulo) {
     this.título = novoTítulo;
   }
   
-  alterarDescriçao(novaDescrição) {
+  alterarDescrição(novaDescrição) {
     this.descrição = novaDescrição;
   }
   
@@ -113,6 +117,12 @@ const dataObj = new Date(dataFormatar[2], dataFormatar[1]-1, dataFormatar[0]);
 console.log(dataObj.getDate());
 console.log(dataObj.getMonth()+1);
 console.log(dataObj.getFullYear());
+
+todo1.alterarDescrição("Nova descrição");
+todo1.alterarNotas("Nova nota");
+todo1.alterarTítuloToDo("Novo título");
+projecto1.alterarTítuloProjecto("Novo título");
+console.log(projecto1)
 
 
 
