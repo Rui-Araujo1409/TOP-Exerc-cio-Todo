@@ -50,6 +50,22 @@ class Todo {
   alterarEstado() {
 this.estado == "activo" ? this.estado = "inactivo" : this.estado = "activo";
   }
+  
+  alterarDataTérmino(data) {
+    this.dataTérmino = data;
+  }
+  
+  alterarTítulo(novoTítulo) {
+    this.título = novoTítulo;
+  }
+  
+  alterarDescriçao(novaDescrição) {
+    this.descrição = novaDescrição;
+  }
+  
+  alterarNotas(novaNotas) {
+    this.notas = novaNotas;
+  }
  
 }
 
