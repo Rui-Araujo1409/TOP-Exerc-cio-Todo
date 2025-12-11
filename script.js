@@ -60,7 +60,7 @@ const listaTodosProjecto1 = new ListaTodos();
 
 const projecto1 = new Projecto("Projecto 1", ["Rui Araújo", "Joaquim Araújo", "Ana Araújo"], listaTodosProjecto1);
 
-const todo1 = new Todo("Todo 1", "Rui Araújo", "descrição", "data", 1, "activo", "notas", tarefasTodo1);
+const todo1 = new Todo("Todo 1", "Rui Araújo", "descrição", "13/12/2025", 1, "activo", "notas", tarefasTodo1);
 
 const todo2 = new Todo("Todo 2", "Joaquim Araújo", "descrição", "data", 0, "inactivo", "notas", tarefasTodo2);
 
@@ -90,6 +90,13 @@ todo1.alterarPrioridade(2);
 console.log(projecto1);
 todo1.alterarEstado();
 console.log(projecto1);
+
+const dataFormatar = todo1.dataTérmino.split("/");
+console.log(dataFormatar);
+const dataObj = new Date(dataFormatar[2], dataFormatar[1]-1, dataFormatar[0]);
+console.log(dataObj.getDate());
+console.log(dataObj.getMonth()+1);
+console.log(dataObj.getFullYear());
 
 
 
