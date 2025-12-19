@@ -1,50 +1,49 @@
+class Utilizadores {
+  constructor(nome) {
+    this.nome = nome;
+  }
+  
+  alterarNome(novoNome) { this.nome = novoNome; }
+}
+
 class Projecto {
   constructor(título, utilizadores, todos){
     this.título = título;
-  this.utilizador = utilizadores;
-    this.todos = todos;
+  this.utilizadores = [];
+    this.todos = [];
   } 
   
   alterarTítuloProjecto(novoTítulo) {
     this.título = novoTítulo;
   }
+  
+    adicionarUtilizadorProjecto(utilizador) {this.utilizadores.push(utilizador);}
+  
+  retirarUtilizadorProjecto(utilizador) {
+    let index = this.utilizadores.findIndex(elemento => elemento == utilizador);
+  this.utilizadores.splice(index,1);
+  }
+  
+  adicionarToDos(todo) { this.todos.push(todo); }
+  
+   retirarTodos(todo) {
+    let index = this.todos.findIndex(elemento => elemento == todo);
+  this.utilizadores.splice(index,1);
+  }
+  
 }
 
-class TarefasTodo {
-  constructor(){
-    this.tarefas = [];
-  }
-  
-  adicionarTarefa(item) {this.tarefas.push(item)}
-  
-  retirarTarefa(item) {
-    let index = this.tarefas.findIndex(elemento => elemento == item);
-  this.tarefas.splice(index,1);
-  }
-}
 
-class ListaTodos {
-  constructor(){
-    this.todos = [];
-  }
-  
-  adicionarTodo(item) {this.todos.push(item)};
-  retirarTodo(item){
-    let index = this.todos.findIndex(elemento => elemento == item);
-    this.todos.splice(index,1);
-  }
-}
 
 class Todo {
-  constructor(título, utilizador, descrição, dataTérmino, prioridade, estado, notas, tarefas) {
+  constructor(título, descrição, dataTérmino, prioridade, estado, notas, tarefas) {
     this.título = título
-    this.utilizador = utilizador;
   this.descrição = descrição;
   this.dataTérmino = dataTérmino;
   this.prioridade = prioridade;
     this.estado = estado;
   this.notas = notas;
-    this.tarefas = tarefas;
+    this.tarefas = [];
   }
   
   alterarPrioridade(valor) {
@@ -70,46 +69,50 @@ this.estado == "activo" ? this.estado = "inactivo" : this.estado = "activo";
   alterarNotas(novaNotas) {
     this.notas = novaNotas;
   }
+  
+  adicionarTarefa(tarefa) { this.tarefas.push(tarefa); }
+  retirarTarefa(tarefa) {
+    let index = this.tarefas.findIndex(elemento => elemento == tarefa);
+  this.tarefas.splice(index,1);
+  }
  
 }
 
-const tarefasTodo1 = new TarefasTodo();
-const tarefasTodo2 = new TarefasTodo();
-const listaTodosProjecto1 = new ListaTodos();
 
 
-const projecto1 = new Projecto("Projecto 1", ["Rui Araújo", "Joaquim Araújo", "Ana Araújo"], listaTodosProjecto1);
+const utilizador1 = new Utilizadores("Rui Araújo");
+const utilizador2 = new Utilizadores("Joaquim Araújo");
+const utilizador3 = new Utilizadores("Ana Araújo");
+console.log(utilizador1);
 
-const todo1 = new Todo("Todo 1", "Rui Araújo", "descrição", "13/12/2025", 1, "activo", "notas", tarefasTodo1);
+const projecto1 = new Projecto("Projecto 1");
+projecto1.adicionarUtilizadorProjecto(utilizador1.nome);
 
-const todo2 = new Todo("Todo 2", "Joaquim Araújo", "descrição", "data", 0, "inactivo", "notas", tarefasTodo2);
+const projecto2 = new Projecto("Projecto 2");
+
+
+
+
+const todo1 = new Todo("Todo 1", "descrição", "13/12/2025", 1, "activo", "notas");
+
+const todo2 = new Todo("Todo 2", "descrição", "data", 0, "inactivo", "notas");
 
 
 console.log(projecto1);
 console.log(todo1);
 console.log(todo2);
+projecto1.adicionarToDos(todo1);
+console.log(projecto1);
 
 
-tarefasTodo1.adicionarTarefa("tarefa1");
-tarefasTodo1.adicionarTarefa("tarefa2");
-tarefasTodo1.adicionarTarefa("tarefa3");
-tarefasTodo1.adicionarTarefa("tarefa4");
-console.log(tarefasTodo1);
-tarefasTodo1.retirarTarefa("tarefa2");
-console.log(tarefasTodo1);
+todo1.adicionarTarefa("tarefa1");
+todo1.adicionarTarefa("tarefa2");
+todo1.adicionarTarefa("tarefa3");
+todo1.adicionarTarefa("tarefa4");
+console.log(todo1);
+todo1.retirarTarefa("tarefa3");
 console.log(todo1);
 
-listaTodosProjecto1.adicionarTodo(todo1);
-console.log(listaTodosProjecto1);
-console.log(projecto1);
-listaTodosProjecto1.adicionarTodo(todo2);
-console.log(projecto1);
-listaTodosProjecto1.retirarTodo(todo2);
-console.log(projecto1);
-todo1.alterarPrioridade(2);
-console.log(projecto1);
-todo1.alterarEstado();
-console.log(projecto1);
 
 const dataFormatar = todo1.dataTérmino.split("/");
 console.log(dataFormatar);
@@ -122,9 +125,4 @@ todo1.alterarDescrição("Nova descrição");
 todo1.alterarNotas("Nova nota");
 todo1.alterarTítuloToDo("Novo título");
 projecto1.alterarTítuloProjecto("Novo título");
-console.log(projecto1)
-
-
-
-
-
+console.log(projecto1);
