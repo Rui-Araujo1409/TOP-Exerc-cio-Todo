@@ -2,6 +2,7 @@ import Utilizadores from "./utilizadores.js";
 import Projectos from "./projectos.js";
 import ToDos from "./todos.js";
 import "./styles.css";
+import { format, compareAsc } from "date-fns";
 
 const utilizador1 = new Utilizadores("Rui Araújo");
 const utilizador2 = new Utilizadores("Joaquim Araújo");
