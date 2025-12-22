@@ -6,7 +6,7 @@ class Utilizadores {
   alterarNome(novoNome) { this.nome = novoNome; }
 }
 
-class Projecto {
+class Projectos {
   constructor(título, utilizadores, todos){
     this.título = título;
   this.utilizadores = [];
@@ -35,7 +35,7 @@ class Projecto {
 
 
 
-class Todo {
+class ToDos {
   constructor(título, descrição, dataTérmino, prioridade, estado, notas, tarefas) {
     this.título = título
   this.descrição = descrição;
@@ -85,17 +85,17 @@ const utilizador2 = new Utilizadores("Joaquim Araújo");
 const utilizador3 = new Utilizadores("Ana Araújo");
 console.log(utilizador1);
 
-const projecto1 = new Projecto("Projecto 1");
+const projecto1 = new Projectos("Projecto 1");
 projecto1.adicionarUtilizadorProjecto(utilizador1.nome);
 
-const projecto2 = new Projecto("Projecto 2");
+const projecto2 = new Projectos("Projecto 2");
 
 
 
 
-const todo1 = new Todo("Todo 1", "descrição", "13/12/2025", 1, "activo", "notas");
+const todo1 = new ToDos("Todo 1", "descrição", "13/12/2025", 1, "activo", "notas");
 
-const todo2 = new Todo("Todo 2", "descrição", "data", 0, "inactivo", "notas");
+const todo2 = new ToDos("Todo 2", "descrição", "data", 0, "inactivo", "notas");
 
 
 console.log(projecto1);
