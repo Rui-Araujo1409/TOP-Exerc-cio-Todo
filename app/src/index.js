@@ -9,6 +9,7 @@ console.log(utilizador1);
 
 const projecto1 = new Projectos("Projecto 1");
 projecto1.adicionarUtilizadorProjecto(utilizador1.nome);
+projecto1.adicionarUtilizadorProjecto(utilizador2.nome);
 
 const projecto2 = new Projectos("Projecto 2");
 
