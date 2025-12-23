@@ -52,7 +52,8 @@ todo1.alterarTítuloToDo("Novo título");
 projecto1.alterarTítuloProjecto("Novo título");
 console.log(projecto1);
 
-const data1 = new Date(2010, 4, 8);
+const data1 = new Date(2010, 3, 8);
+console.log(data1);
 const data = format(data1, "dd-MM-yyyy");
 console.log(data);
 
