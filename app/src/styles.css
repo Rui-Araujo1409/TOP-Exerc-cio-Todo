@@ -10,9 +10,15 @@
 #caixa-projectos {
   border: 1px solid red;
   padding: 5px;
+  display: inline-block;
 }
 
-.titulo-projecto {
+.projecto {
+  border: 1px solid purple;
+  padding: 5px;
+}
+
+.info-projecto {
   border: 1px solid blue;
   padding: 5px;
 }
@@ -35,4 +41,5 @@
 #botao-criar-projecto {
   border: 1px solid turquoise;
   padding: 5px;
+  display: block;
 }
