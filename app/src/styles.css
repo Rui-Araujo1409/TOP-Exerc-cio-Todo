@@ -1,3 +1,33 @@
-body {
-  background-color: turquoise;
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.contentor {
+  padding: 5px;
+}
+
+#caixa-projectos {
+  border: 1px solid red;
+  padding: 5px;
+}
+
+.titulo-projecto {
+  border: 1px solid blue;
+  padding: 5px;
+}
+
+.cartoes-todos {
+  border: 1px solid green;
+  padding: 5px;
+}
+
+.todo {
+  border: 1px solid yellowgreen;
+}
+
+
+#botoes-projectos {
+  border: 1px solid brown;
+  padding: 5px;
 }
