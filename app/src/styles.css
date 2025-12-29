@@ -24,10 +24,15 @@
 
 .todo {
   border: 1px solid yellowgreen;
+  padding: 5px;
 }
-
 
 #botoes-projectos {
   border: 1px solid brown;
+  padding: 5px;
+}
+
+#botao-criar-projecto {
+  border: 1px solid turquoise;
   padding: 5px;
 }
