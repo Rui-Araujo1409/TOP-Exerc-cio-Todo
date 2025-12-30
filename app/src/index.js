@@ -6,7 +6,7 @@ import { format, compareAsc } from "date-fns";
 
 
 let listaProjectos = [];
-
+let listaToDos = [];
 const utilizador1 = new Utilizadores("Rui Araújo");
 const utilizador2 = new Utilizadores("Joaquim Araújo");
 const utilizador3 = new Utilizadores("Ana Araújo");
@@ -58,6 +58,12 @@ console.log(projecto1);
 //Elemento Projecto
 const caixaProjectosHTML = document.querySelector("#caixa-projectos");
 
+const projectoHTML = document.createElement("div");
+caixaProjectosHTML.appendChild(projectoHTML);
+projectoHTML.classList.add("projecto");
+
+
+
 
 
 //Título projecto
@@ -75,19 +81,16 @@ títuloToDoHTML.textContent = todo1.título;
 //data término ToDo
 const dataToDoHTML = document.querySelector(".data-todo");
 const dataFormatar = todo1.dataTérmino.split("-");
-const dataObj = new Date(dataFormatar[0], dataFormatar[1]-1, dataFormatar[2]);
+const dataObj = new Date(dataFormatar[0], dataFormatar[1] - 1, dataFormatar[2]);
 const dataHTML = format(dataObj, "dd-MM-yyyy");
 dataToDoHTML.textContent = dataHTML;
 
 //fx para criar Projecto novo
-const botãoCriarProj = document.querySelector(".criar-proj-js");
+const botãoCriarProj = document.querySelector("#criar-proj-js");
 botãoCriarProj.addEventListener("click", () => {
     listaProjectos.push(new Projectos("Projecto Novo"));
     let projecto = listaProjectos.at(-1);
     projecto.adicionarUtilizadorProjecto(utilizador1.nome);
-    let projectoHTML = document.createElement("div");
-    caixaProjectosHTML.appendChild(projectoHTML);
-    projectoHTML.classList.add("projecto");
     let infoProjHTML = document.createElement("div");
     projectoHTML.appendChild(infoProjHTML);
     projectoHTML.classList.add("info-projecto");
@@ -98,11 +101,71 @@ botãoCriarProj.addEventListener("click", () => {
     let utilizadoresProjNovoHTML = document.createElement("div");
     infoProjHTML.appendChild(utilizadoresProjNovoHTML);
     utilizadoresProjNovoHTML.classList.add("utilizadores");
-    console.log(projecto);
     utilizadoresProjNovoHTML.textContent = projecto.utilizadores;
-    
+    let cartõesToDoHTML = document.createElement("div");
+    projectoHTML.appendChild(cartõesToDoHTML);
+    cartõesToDoHTML.classList.add("cartoes-todo");
+    let criarToDoHTML = document.createElement("div");
+    cartõesToDoHTML.appendChild(criarToDoHTML);
+    criarToDoHTML.classList.add("criar-todo");
+    let botãoCriarTodoHTML = document.createElement("button");
+    criarToDoHTML.appendChild(botãoCriarTodoHTML);
+    botãoCriarTodoHTML.classList.add("botão-criar-todo")
+    botãoCriarTodoHTML.textContent = "Criar ToDo";
+    let botõesProjHTML = document.createElement("div");
+    projectoHTML.appendChild(botõesProjHTML);
+    botõesProjHTML.classList.add("botoes-projecto");
+    let botãoEditarProjHTML = document.createElement("button");
+    botõesProjHTML.appendChild(botãoEditarProjHTML);
+    botãoEditarProjHTML.classList.add("editar-proj");
+    botãoEditarProjHTML.textContent = "Editar Projecto";
+    let botãoApagarProjHML = document.createElement("button");
+    botõesProjHTML.appendChild(botãoApagarProjHML);
+    botãoApagarProjHML.classList.add("apagar-proj");
+    botãoApagarProjHML.textContent = "Apagar Projecto";
 
+    //fx para criar ToDo
+    const botãoCriarTodo = document.querySelector(".botão-criar-todo");
+    botãoCriarTodo.addEventListener("click", () => {
+        listaToDos.push(new ToDos("Todo 2", "descrição", "2013-05-23", 1, "activo", "notas"));
+        let toDo = listaToDos.at(-1);
+        console.log(toDo);
+        let toDoHTML = document.createElement("div");
+        cartõesToDoHTML.appendChild(toDoHTML);
+        toDoHTML.classList.add("todo");
+        let títuloToDoHTML = document.createElement("div");
+        toDoHTML.appendChild(títuloToDoHTML);
+        títuloToDoHTML.classList.add("titulo-todo");
+        títuloToDoHTML.textContent = toDo.título;
+        let dataToDoHTML2 = document.createElement("div");
+        toDoHTML.appendChild(dataToDoHTML2);
+        dataToDoHTML2.classList.add("data-todo");
+        let dataFormatar2 = toDo.dataTérmino.split("-");
+        let dataObj2 = new Date(dataFormatar2[0], dataFormatar2[1] - 1, dataFormatar2[2]);
+        let dataHTML2 = format(dataObj2, "dd-MM-yyyy");
+        dataToDoHTML2.textContent = dataHTML2;
+        let botõesToDoHTML = document.createElement("div");
+        toDoHTML.appendChild(botõesToDoHTML);
+        botõesToDoHTML.classList.add("botoes-todos");
+        let botãoEditarToDoHTML = document.createElement("button");
+        botõesToDoHTML.appendChild(botãoEditarToDoHTML);
+        botãoEditarToDoHTML.classList.add("editar-todo");
+        botãoEditarToDoHTML.textContent = "Editar";
+        let botãoExpandirToDoHTML = document.createElement("button");
+        botõesToDoHTML.appendChild(botãoExpandirToDoHTML);
+        botãoExpandirToDoHTML.classList.add("expandir-todo");
+        botãoExpandirToDoHTML.textContent = "Detalhes";
+        let botãoApagarToDoHTML = document.createElement("button");
+        botõesToDoHTML.appendChild(botãoApagarToDoHTML);
+        botãoApagarToDoHTML.classList.add("apagar-todo");
+        botãoApagarToDoHTML.textContent = "Apagar";
+
+    });
 });
+
+
+
+
 
 
 
