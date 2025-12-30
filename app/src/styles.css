@@ -23,6 +23,10 @@
   padding: 5px;
 }
 
+.titulo-projecto {
+  font-weight: bold;
+}
+
 .cartoes-todos {
   border: 1px solid green;
   padding: 5px;
@@ -38,7 +42,7 @@
   padding: 5px;
 }
 
-#botao-criar-projecto {
+.botao-criar-projecto {
   border: 1px solid turquoise;
   padding: 5px;
   display: block;

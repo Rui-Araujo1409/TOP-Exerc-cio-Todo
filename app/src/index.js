@@ -4,6 +4,9 @@ import ToDos from "./todos.js";
 import "./styles.css";
 import { format, compareAsc } from "date-fns";
 
+
+let listaProjectos = [];
+
 const utilizador1 = new Utilizadores("Rui Araújo");
 const utilizador2 = new Utilizadores("Joaquim Araújo");
 const utilizador3 = new Utilizadores("Ana Araújo");
@@ -15,7 +18,9 @@ projecto1.adicionarUtilizadorProjecto(utilizador2.nome);
 
 const projecto2 = new Projectos("Projecto 2");
 
-
+listaProjectos.push(projecto1);
+listaProjectos.push(projecto2);
+console.log(listaProjectos);
 
 
 const todo1 = new ToDos("Todo 1", "descrição", "2010-04-08", 1, "activo", "notas");
@@ -50,10 +55,14 @@ console.log(projecto1);
 
 
 //elementos html
+//Elemento Projecto
+const caixaProjectosHTML = document.querySelector("#caixa-projectos");
+
+
+
 //Título projecto
 const títuloProjHTML = document.querySelector(".titulo-projecto");
 títuloProjHTML.textContent = projecto1.título;
-títuloProjHTML.setAttribute("style","font-weight:bold");
 
 //utilizadores projecto
 const utilizadoresProjHTML = document.querySelector(".utilizadores");
@@ -69,6 +78,31 @@ const dataFormatar = todo1.dataTérmino.split("-");
 const dataObj = new Date(dataFormatar[0], dataFormatar[1]-1, dataFormatar[2]);
 const dataHTML = format(dataObj, "dd-MM-yyyy");
 dataToDoHTML.textContent = dataHTML;
+
+//fx para criar Projecto novo
+const botãoCriarProj = document.querySelector(".criar-proj-js");
+botãoCriarProj.addEventListener("click", () => {
+    listaProjectos.push(new Projectos("Projecto Novo"));
+    let projecto = listaProjectos.at(-1);
+    projecto.adicionarUtilizadorProjecto(utilizador1.nome);
+    let projectoHTML = document.createElement("div");
+    caixaProjectosHTML.appendChild(projectoHTML);
+    projectoHTML.classList.add("projecto");
+    let infoProjHTML = document.createElement("div");
+    projectoHTML.appendChild(infoProjHTML);
+    projectoHTML.classList.add("info-projecto");
+    let títuloProjNovoHTML = document.createElement("div");
+    infoProjHTML.appendChild(títuloProjNovoHTML);
+    títuloProjNovoHTML.classList.add("titulo-projecto");
+    títuloProjNovoHTML.textContent = projecto.título;
+    let utilizadoresProjNovoHTML = document.createElement("div");
+    infoProjHTML.appendChild(utilizadoresProjNovoHTML);
+    utilizadoresProjNovoHTML.classList.add("utilizadores");
+    console.log(projecto);
+    utilizadoresProjNovoHTML.textContent = projecto.utilizadores;
+    
+
+});
 
 
 
