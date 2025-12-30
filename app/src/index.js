@@ -48,8 +48,8 @@ console.log(dataObj.getFullYear());
 
 todo1.alterarDescrição("Nova descrição");
 todo1.alterarNotas("Nova nota");
-todo1.alterarTítuloToDo("Novo título");
-projecto1.alterarTítuloProjecto("Novo título");
+//todo1.alterarTítuloToDo("Novo título");
+//projecto1.alterarTítuloProjecto("Novo título");
 console.log(projecto1);
 
 const data1 = new Date(2010, 3, 8);
@@ -57,3 +57,14 @@ console.log(data1);
 const data = format(data1, "dd-MM-yyyy");
 console.log(data);
 
+//elementos html
+//Título projecto
+const títuloProjHTML = document.querySelector(".titulo-projecto");
+títuloProjHTML.textContent = projecto1.título;
+títuloProjHTML.setAttribute("style","font-weight:bold");
+
+//utilizadores projecto
+const utilizadoresProjHTML = document.querySelector(".utilizadores");
+utilizadoresProjHTML.textContent = projecto1.utilizadores;
+
+//título ToDo
