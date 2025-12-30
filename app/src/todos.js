@@ -1,3 +1,5 @@
+import {format} from "date-fns";
+
 export default class ToDos {
   constructor(título, descrição, dataTérmino, prioridade, estado, notas, tarefas) {
     this.título = título
@@ -16,7 +18,7 @@ export default class ToDos {
   alterarEstado() {
 this.estado == "activo" ? this.estado = "inactivo" : this.estado = "activo";
   }
-  
+
   alterarDataTérmino(data) {
     this.dataTérmino = data;
   }

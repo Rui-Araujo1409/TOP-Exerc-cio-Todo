@@ -18,7 +18,7 @@ const projecto2 = new Projectos("Projecto 2");
 
 
 
-const todo1 = new ToDos("Todo 1", "descrição", "13/12/2025", 1, "activo", "notas");
+const todo1 = new ToDos("Todo 1", "descrição", "2010-04-08", 1, "activo", "notas");
 
 const todo2 = new ToDos("Todo 2", "descrição", "data", 0, "inactivo", "notas");
 
@@ -39,12 +39,7 @@ todo1.retirarTarefa("tarefa3");
 console.log(todo1);
 
 
-const dataFormatar = todo1.dataTérmino.split("/");
-console.log(dataFormatar);
-const dataObj = new Date(dataFormatar[2], dataFormatar[1]-1, dataFormatar[0]);
-console.log(dataObj.getDate());
-console.log(dataObj.getMonth()+1);
-console.log(dataObj.getFullYear());
+
 
 todo1.alterarDescrição("Nova descrição");
 todo1.alterarNotas("Nova nota");
@@ -52,10 +47,7 @@ todo1.alterarNotas("Nova nota");
 //projecto1.alterarTítuloProjecto("Novo título");
 console.log(projecto1);
 
-const data1 = new Date(2010, 3, 8);
-console.log(data1);
-const data = format(data1, "dd-MM-yyyy");
-console.log(data);
+
 
 //elementos html
 //Título projecto
@@ -68,3 +60,15 @@ const utilizadoresProjHTML = document.querySelector(".utilizadores");
 utilizadoresProjHTML.textContent = projecto1.utilizadores;
 
 //título ToDo
+const títuloToDoHTML = document.querySelector(".titulo-todo");
+títuloToDoHTML.textContent = todo1.título;
+
+//data término ToDo
+const dataToDoHTML = document.querySelector(".data-todo");
+const dataFormatar = todo1.dataTérmino.split("-");
+const dataObj = new Date(dataFormatar[0], dataFormatar[1]-1, dataFormatar[2]);
+const dataHTML = format(dataObj, "dd-MM-yyyy");
+dataToDoHTML.textContent = dataHTML;
+
+
+
