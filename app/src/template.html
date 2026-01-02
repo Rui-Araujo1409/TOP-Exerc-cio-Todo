@@ -31,7 +31,26 @@
             </div>
 
         </div>
-        <div class="botao-criar-projecto"><button id="criar-proj-js">Criar Projecto novo</button></div>
+        <dialog>
+            <form action="dialog" class="formulario-adicionar-proj">
+                <div class="formulario-input">
+                    <label for="titulo">Título do Projecto</label>
+                    <input type="text" id="titulo">
+                </div>
+                <div class="formulario-input">
+                    <label for="utilizadores">Utilizador(es)</label>
+                    <input type="text" id="utilizadores">
+                </div>
+                <div class="guardar-proj">
+                    <button type="submit" class="botao-guardar-proj">Guardar</button>
+                </div>
+            </form>
+            <div class="fechar-form-proj">
+                <button class="fechar">Fechar</button>
+            </div>
+        </dialog>
+        <div class="criar-projecto"><button id="botao-criar-proj-js">Criar Projecto novo</button>
+        </div>
     </div>
 </body>
 

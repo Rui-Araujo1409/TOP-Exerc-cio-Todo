@@ -62,6 +62,10 @@ const projectoHTML = document.createElement("div");
 caixaProjectosHTML.appendChild(projectoHTML);
 projectoHTML.classList.add("projecto");
 
+const formulárioProjHTML = document.querySelector("dialog");
+const botãoAbrirFormNovoProjHTML = document.querySelector("#botao-criar-proj-js");
+const botãoFecharFormNovoProjHTML = document.querySelector(".fechar");
+
 
 
 
@@ -86,7 +90,7 @@ const dataHTML = format(dataObj, "dd-MM-yyyy");
 dataToDoHTML.textContent = dataHTML;
 
 //fx para criar Projecto novo
-const botãoCriarProj = document.querySelector("#criar-proj-js");
+const botãoCriarProj = document.querySelector("#botao-criar-proj-js");
 botãoCriarProj.addEventListener("click", () => {
     listaProjectos.push(new Projectos("Projecto Novo"));
     let projecto = listaProjectos.at(-1);
@@ -162,6 +166,15 @@ botãoCriarProj.addEventListener("click", () => {
 
     });
 });
+
+//fx para abrir form de novo projecto
+botãoAbrirFormNovoProjHTML.addEventListener("click", () => formulárioProjHTML.showModal());
+
+//fx para fechar form de novo projecto
+botãoFecharFormNovoProjHTML.addEventListener("click", () => {
+    formulárioProjHTML.close();
+    //inserir código para limpar valores
+})
 
 
 
