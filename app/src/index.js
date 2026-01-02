@@ -66,10 +66,6 @@ const formulárioProjHTML = document.querySelector("dialog");
 const botãoAbrirFormNovoProjHTML = document.querySelector("#botao-criar-proj-js");
 const botãoFecharFormNovoProjHTML = document.querySelector(".fechar");
 
-
-
-
-
 //Título projecto
 const títuloProjHTML = document.querySelector(".titulo-projecto");
 títuloProjHTML.textContent = projecto1.título;
