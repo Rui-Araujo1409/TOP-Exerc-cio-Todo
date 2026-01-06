@@ -1,6 +1,6 @@
 import {format} from "date-fns";
 
-export default class ToDos {
+export default class ToDo {
   constructor(título, descrição, dataTérmino, prioridade, estado, notas, tarefas) {
     this.título = título
   this.descrição = descrição;

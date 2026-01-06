@@ -12,17 +12,17 @@
         <div id="caixa-projectos">Caixa Projectos
             <div class="projecto">
                 <div class="info-projecto">
-                    <div class="titulo-projecto">Título Projecto</div>
-                    <div class="utilizadores">Utilizadores</div>
+                    <div class="titulo-projecto"></div>
+                    <div class="utilizadores"></div>
                 </div>
-                <div class="cartoes-todos">
+               <!--  <div class="cartoes-todos">
                     <div class="todo">
-                        <div class="titulo-todo">Título ToDo</div>
-                        <div class="data-todo">Data Término ToDo</div>
-                        <div class="botoes-todos">
+                        <div class="titulo-todo"></div>
+                        <div class="data-todo"></div> -->
+                        <!-- <div class="botoes-todos">
                             <button class="editar-todo">Editar</button><button
                                 class="expandir-todo">Expandir</button><button class="apagar-todo">Apagar</button>
-                        </div>
+                        </div> -->
                     </div>
                     <dialog id="modal-criar-todo">
                         <form action="dialog" class="form-criar-todo">
@@ -41,24 +41,31 @@
                             <div class="input-form-todo">
                                 <fieldset>
                                     <legend>Prioridade</legend>
-                                    <input type="radio" class="prioridade-todo" id="prioridade-1" name="prioridade" value="prioridade-1" required>
+                                    <input type="radio" class="prioridade-todo" id="prioridade-1" name="prioridade"
+                                        value="prioridade-1" required>
                                     <label for="prioridade-todo">1</label>
-                                    <input type="radio" class="prioridade-todo" id="prioridade-2" name="prioridade" value="prioridade-2" required>
+                                    <input type="radio" class="prioridade-todo" id="prioridade-2" name="prioridade"
+                                        value="prioridade-2" required>
                                     <label for="prioridade-todo">2</label>
-                                    <input type="radio" class="prioridade-todo" id="prioridade-3" name="prioridade" value="prioridade-3" required>
+                                    <input type="radio" class="prioridade-todo" id="prioridade-3" name="prioridade"
+                                        value="prioridade-3" required>
                                     <label for="prioridade-todo">3</label>
-                                    <input type="radio" class="prioridade-todo" id="prioridade-4" name="prioridade" value="prioridade-4" required>
+                                    <input type="radio" class="prioridade-todo" id="prioridade-4" name="prioridade"
+                                        value="prioridade-4" required>
                                     <label for="prioridade-todo">4</label>
-                                    <input type="radio" class="prioridade-todo" id="prioridade-5" name="prioridade" value="prioridade-5" required>
+                                    <input type="radio" class="prioridade-todo" id="prioridade-5" name="prioridade"
+                                        value="prioridade-5" required>
                                     <label for="prioridade-todo">5</label>
                                 </fieldset>
                             </div>
                             <div class="input-form-todo">
                                 <fieldset>
                                     <legend>Estado do ToDo</legend>
-                                    <input type="radio" class="estado-todo" id="estado-activo" name="estado" value="activo" required>
+                                    <input type="radio" class="estado-todo" id="estado-activo" name="estado"
+                                        value="activo" required>
                                     <label for="estado-todo">Activo</label>
-                                    <input type="radio" class="estado-todo" id="estado-activo" name="estado" value="inactivo" required>
+                                    <input type="radio" class="estado-todo" id="estado-activo" name="estado"
+                                        value="inactivo" required>
                                     <label for="estado-todo">Inactivo</label>
                                 </fieldset>
                             </div>
@@ -67,22 +74,38 @@
                                 <input type="text" id="tarefas-todo">
                             </div>
                         </form>
-                          <div class="guardar-todo">
-                    <button type="submit" class="botao-guardar-todo">Guardar</button>
-                </div>
-            </form>
-            <div class="fechar-form-todo">
-                <button class="botao-fechar-todo">Fechar</button>
-            </div>
+                        <div class="guardar-todo">
+                            <button type="submit" class="botao-guardar-todo">Guardar</button>
+                        </div>
+                        </form>
+                        <div class="fechar-form-todo">
+                            <button class="botao-fechar-todo">Fechar</button>
+                        </div>
                     </dialog>
                     <div class="criar-todo">
                         <button id="botão-criar-todo">Criar novo ToDo</button>
                     </div>
                 </div>
-                <div class="botoes-projecto">
+                <dialog id="modal-editar-proj">
+                    <form action="dialog" class="form-editar-proj">
+                        <div class="input-editar-proj">
+                            <label for="editar-título-proj">Editar o título</label>
+                            <input type="text" id="editar-título-proj">
+                        </div>
+                        <div class="input-editar-proj">
+                            <label for="editar-user-proj">Editar o nome do utilizador</label>
+                            <input type="text" id="editar-user-proj">
+                        </div>
+                    </form>
+                    <div class="botoes-form-editar-proj">
+                        <button class="guardar guardar-edição-proj">Guardar</button>
+                        <button class="fechar fechar-edição-proj">Fechar</button>
+                    </div>
+                </dialog>
+                <!-- <div class="botoes-projecto">
                     <button class="editar-proj">Editar Projecto</button><button class="apagar-proj">Apagar
                         Projecto</button>
-                </div>
+                </div> -->
             </div>
 
         </div>

@@ -1,4 +1,4 @@
-export default class Projectos {
+export default class Projecto {
   constructor(título, utilizadores, todos){
     this.título = título;
   this.utilizadores = [];

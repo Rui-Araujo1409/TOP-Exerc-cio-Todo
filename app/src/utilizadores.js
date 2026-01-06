@@ -1,4 +1,4 @@
-export default class Utilizadores {
+export default class Utilizador {
   constructor(nome) {
     this.nome = nome;
   }

@@ -1,58 +1,26 @@
-import Utilizadores from "./utilizadores.js";
-import Projectos from "./projectos.js";
-import ToDos from "./todos.js";
+import Utilizador from "./utilizadores.js";
+import Projecto from "./projectos.js";
+import ToDo from "./todos.js";
 import "./styles.css";
 import { format, compareAsc } from "date-fns";
 
-
+//vars com os arrays dos conteúdos Utilizadores, Projectos e ToDos
 let listaProjectos = [];
 let listaToDos = [];
-const utilizador1 = new Utilizadores("Rui Araújo");
-const utilizador2 = new Utilizadores("Joaquim Araújo");
-const utilizador3 = new Utilizadores("Ana Araújo");
-console.log(utilizador1);
-
-const projecto1 = new Projectos("Projecto 1");
-projecto1.adicionarUtilizadorProjecto(utilizador1.nome);
-projecto1.adicionarUtilizadorProjecto(utilizador2.nome);
-
-const projecto2 = new Projectos("Projecto 2");
-
-listaProjectos.push(projecto1);
-listaProjectos.push(projecto2);
-console.log(listaProjectos);
-
-
-const todo1 = new ToDos("Todo 1", "descrição", "2010-04-08", 1, "activo", "notas");
-
-const todo2 = new ToDos("Todo 2", "descrição", "data", 0, "inactivo", "notas");
-
-
-console.log(projecto1);
-console.log(todo1);
-console.log(todo2);
-projecto1.adicionarToDos(todo1);
-console.log(projecto1);
-
-
-todo1.adicionarTarefa("tarefa1");
-todo1.adicionarTarefa("tarefa2");
-todo1.adicionarTarefa("tarefa3");
-todo1.adicionarTarefa("tarefa4");
-console.log(todo1);
-todo1.retirarTarefa("tarefa3");
-console.log(todo1);
+let utilizadores = [];
 
 
 
 
-todo1.alterarDescrição("Nova descrição");
-todo1.alterarNotas("Nova nota");
-//todo1.alterarTítuloToDo("Novo título");
-//projecto1.alterarTítuloProjecto("Novo título");
-console.log(projecto1);
+//criar o conteúdo inicial por defeito
 
+listaProjectos.push(new Projecto("Novo Projecto"));
+utilizadores.push(new Utilizador("Novo utilizador"));
+listaProjectos[0].adicionarUtilizadorProjecto(utilizadores[0].nome);
 
+//adicionar conteúdos iniciais às vars lista
+/* listaProjectos.push(projectoInicial);
+utilizadores.push(utilizadorInicial.nome); */
 
 //elementos html
 //Elemento Projecto
@@ -62,17 +30,38 @@ const projectoHTML = document.createElement("div");
 caixaProjectosHTML.appendChild(projectoHTML);
 projectoHTML.classList.add("projecto");
 
-const formulárioProjHTML = document.querySelector("#modal-criar-proj");
+//html formulário criar projecto 
+const formulárioCriarProjHTML = document.querySelector("#modal-criar-proj");
 const botãoAbrirFormNovoProjHTML = document.querySelector("#botao-criar-proj-js");
 const botãoFecharFormNovoProjHTML = document.querySelector(".botao-fechar-proj");
 
+//html formulário editar projecto
+const formulárioEditarProjHTML = document.querySelector("#modal-editar-proj");
+const botãoFecharEdiçãoProjHTML = document.querySelector(".fechar-edição-proj");
+const botãoGuardarEdiçãoProjHTML = document.querySelector(".guardar-edição-proj");
+const inputEditarTítuloProjHTML = document.querySelector("#editar-título-proj");
+const inputEditarUtilizadoresProjHTML = document.querySelector("#editar-user-proj");
+
+let botõesProjHTML = document.createElement("div");
+projectoHTML.appendChild(botõesProjHTML);
+botõesProjHTML.classList.add("botoes-projecto");
+let botãoEditarProjHTML = document.createElement("button");
+botõesProjHTML.appendChild(botãoEditarProjHTML);
+botãoEditarProjHTML.classList.add("editar-proj");
+botãoEditarProjHTML.textContent = "Editar Projecto";
+/* let botãoApagarProjHML = document.createElement("button");
+botõesProjHTML.appendChild(botãoApagarProjHML);
+botãoApagarProjHML.classList.add("apagar-proj");
+botãoApagarProjHML.textContent = "Apagar Projecto"; */
+
 //Título projecto
 const títuloProjHTML = document.querySelector(".titulo-projecto");
-títuloProjHTML.textContent = projecto1.título;
+títuloProjHTML.textContent = listaProjectos[0].título;
+
 
 //utilizadores projecto
 const utilizadoresProjHTML = document.querySelector(".utilizadores");
-utilizadoresProjHTML.textContent = projecto1.utilizadores;
+utilizadoresProjHTML.textContent = listaProjectos[0].utilizadores;
 
 //criar ToDo
 const formulárioCriarToDoHTML = document.querySelector("#modal-criar-todo");
@@ -84,19 +73,15 @@ const botãofecharFormNovoToDoHTML = document.querySelector(".botao-fechar-todo"
 
 //título ToDo
 const títuloToDoHTML = document.querySelector(".titulo-todo");
-títuloToDoHTML.textContent = todo1.título;
 
 //data término ToDo
 const dataToDoHTML = document.querySelector(".data-todo");
-const dataFormatar = todo1.dataTérmino.split("-");
-const dataObj = new Date(dataFormatar[0], dataFormatar[1] - 1, dataFormatar[2]);
-const dataHTML = format(dataObj, "dd-MM-yyyy");
-dataToDoHTML.textContent = dataHTML;
+
 
 //fx para criar Projecto novo
-const botãoCriarProj = document.querySelector("#botao-criar-proj-js");
+/* const botãoCriarProj = document.querySelector("#botao-criar-proj-js");
 botãoCriarProj.addEventListener("click", () => {
-    listaProjectos.push(new Projectos("Projecto Novo"));
+    listaProjectos.push(new Projecto("Projecto Novo"));
     let projecto = listaProjectos.at(-1);
     projecto.adicionarUtilizadorProjecto(utilizador1.nome);
     let infoProjHTML = document.createElement("div");
@@ -120,22 +105,12 @@ botãoCriarProj.addEventListener("click", () => {
     criarToDoHTML.appendChild(botãoCriarTodoHTML);
     botãoCriarTodoHTML.classList.add("botão-criar-todo")
     botãoCriarTodoHTML.textContent = "Criar ToDo";
-    let botõesProjHTML = document.createElement("div");
-    projectoHTML.appendChild(botõesProjHTML);
-    botõesProjHTML.classList.add("botoes-projecto");
-    let botãoEditarProjHTML = document.createElement("button");
-    botõesProjHTML.appendChild(botãoEditarProjHTML);
-    botãoEditarProjHTML.classList.add("editar-proj");
-    botãoEditarProjHTML.textContent = "Editar Projecto";
-    let botãoApagarProjHML = document.createElement("button");
-    botõesProjHTML.appendChild(botãoApagarProjHML);
-    botãoApagarProjHML.classList.add("apagar-proj");
-    botãoApagarProjHML.textContent = "Apagar Projecto";
+    
 
     //fx para criar ToDo
     const botãoCriarTodo = document.querySelector(".botão-criar-todo");
     botãoCriarTodo.addEventListener("click", () => {
-        listaToDos.push(new ToDos("Todo 2", "descrição", "2013-05-23", 1, "activo", "notas"));
+        listaToDos.push(new ToDo("Todo 2", "descrição", "2013-05-23", 1, "activo", "notas"));
         let toDo = listaToDos.at(-1);
         console.log(toDo);
         let toDoHTML = document.createElement("div");
@@ -171,6 +146,8 @@ botãoCriarProj.addEventListener("click", () => {
     });
 });
 
+
+
 //fx para abrir form de novo projecto
 botãoAbrirFormNovoProjHTML.addEventListener("click", () => formulárioProjHTML.showModal());
 
@@ -187,4 +164,26 @@ botãoCriarToDoHTML.addEventListener("click", () => formulárioCriarToDoHTML.sho
 //fx para fechar form criar ToDo
 botãofecharFormNovoToDoHTML.addEventListener("click", () => formulárioCriarToDoHTML.close());
 
+ */
 
+//lógica para editar o Projecto
+///botões
+////quando clica em editar projecto
+botãoEditarProjHTML.addEventListener("click", () => {
+    //limpar os inputs
+    inputEditarTítuloProjHTML.value = "";
+    inputEditarUtilizadoresProjHTML.value = "";
+    //abre o modal
+    formulárioEditarProjHTML.showModal();
+} );
+
+////editar o título e utilizador
+/////lógica quando clicar em guardar
+botãoGuardarEdiçãoProjHTML.addEventListener("click", () => {
+    listaProjectos[0].título = inputEditarTítuloProjHTML.value;
+    listaProjectos[0].utilizadores = inputEditarUtilizadoresProjHTML.value;
+   
+});
+
+////fechar o modal
+botãoFecharEdiçãoProjHTML.addEventListener("click", () => formulárioEditarProjHTML.close());
