@@ -62,9 +62,9 @@ const projectoHTML = document.createElement("div");
 caixaProjectosHTML.appendChild(projectoHTML);
 projectoHTML.classList.add("projecto");
 
-const formulárioProjHTML = document.querySelector("dialog");
+const formulárioProjHTML = document.querySelector("#modal-criar-proj");
 const botãoAbrirFormNovoProjHTML = document.querySelector("#botao-criar-proj-js");
-const botãoFecharFormNovoProjHTML = document.querySelector(".fechar");
+const botãoFecharFormNovoProjHTML = document.querySelector(".botao-fechar-proj");
 
 //Título projecto
 const títuloProjHTML = document.querySelector(".titulo-projecto");
@@ -73,6 +73,14 @@ títuloProjHTML.textContent = projecto1.título;
 //utilizadores projecto
 const utilizadoresProjHTML = document.querySelector(".utilizadores");
 utilizadoresProjHTML.textContent = projecto1.utilizadores;
+
+//criar ToDo
+const formulárioCriarToDoHTML = document.querySelector("#modal-criar-todo");
+const botãoCriarToDoHTML = document.querySelector("#botão-criar-todo");
+
+//guardar e fechar ToDo
+const botãoGuardarNovoToDoHTML = document.querySelector(".botao-guardar-todo");
+const botãofecharFormNovoToDoHTML = document.querySelector(".botao-fechar-todo");
 
 //título ToDo
 const títuloToDoHTML = document.querySelector(".titulo-todo");
@@ -173,8 +181,10 @@ botãoFecharFormNovoProjHTML.addEventListener("click", () => {
 })
 
 
+//fx para abrir form criar ToDo
+botãoCriarToDoHTML.addEventListener("click", () => formulárioCriarToDoHTML.showModal());
 
-
-
+//fx para fechar form criar ToDo
+botãofecharFormNovoToDoHTML.addEventListener("click", () => formulárioCriarToDoHTML.close());
 
 
