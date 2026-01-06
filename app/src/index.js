@@ -182,7 +182,7 @@ botãoEditarProjHTML.addEventListener("click", () => {
 botãoGuardarEdiçãoProjHTML.addEventListener("click", () => {
     listaProjectos[0].título = inputEditarTítuloProjHTML.value;
     listaProjectos[0].utilizadores = inputEditarUtilizadoresProjHTML.value;
-   
+    formulárioEditarProjHTML.close();
 });
 
 ////fechar o modal
