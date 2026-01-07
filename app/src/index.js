@@ -1,4 +1,4 @@
-import Utilizador from "./utilizadores.js";
+
 import Projecto from "./projectos.js";
 import ToDo from "./todos.js";
 import "./styles.css";
@@ -7,7 +7,7 @@ import { format, compareAsc } from "date-fns";
 //vars com os arrays dos conteúdos Utilizadores, Projectos e ToDos
 let listaProjectos = [];
 let listaToDos = [];
-let utilizadores = [];
+let utilizador;
 
 
 
@@ -15,8 +15,8 @@ let utilizadores = [];
 //criar o conteúdo inicial por defeito
 
 listaProjectos.push(new Projecto("Novo Projecto"));
-utilizadores.push(new Utilizador("Novo utilizador"));
-listaProjectos[0].adicionarUtilizadorProjecto(utilizadores[0].nome);
+utilizador = "Novo utilizador";
+listaProjectos[0].adicionarUtilizadorProjecto(utilizador);
 
 //adicionar conteúdos iniciais às vars lista
 /* listaProjectos.push(projectoInicial);
@@ -61,7 +61,7 @@ títuloProjHTML.textContent = listaProjectos[0].título;
 
 //utilizadores projecto
 const utilizadoresProjHTML = document.querySelector(".utilizadores");
-utilizadoresProjHTML.textContent = listaProjectos[0].utilizadores;
+utilizadoresProjHTML.textContent = utilizador;
 
 //criar ToDo
 const formulárioCriarToDoHTML = document.querySelector("#modal-criar-todo");
@@ -181,7 +181,8 @@ botãoEditarProjHTML.addEventListener("click", () => {
 /////lógica quando clicar em guardar
 botãoGuardarEdiçãoProjHTML.addEventListener("click", () => {
     listaProjectos[0].título = inputEditarTítuloProjHTML.value;
-    listaProjectos[0].utilizadores = inputEditarUtilizadoresProjHTML.value;
+    utilizador = inputEditarUtilizadoresProjHTML.value;
+    listaProjectos[0]
     formulárioEditarProjHTML.close();
 });
 
