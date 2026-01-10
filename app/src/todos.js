@@ -1,14 +1,13 @@
 import {format} from "date-fns";
 
 export default class ToDo {
-  constructor(título, descrição, dataTérmino, prioridade, estado, notas, tarefas) {
+  constructor(título, descrição, dataTérmino, prioridade, estado, tarefas) {
     this.título = título
   this.descrição = descrição;
   this.dataTérmino = dataTérmino;
   this.prioridade = prioridade;
     this.estado = estado;
-  this.notas = notas;
-    this.tarefas = [];
+    this.tarefas = tarefas;
   }
   
   alterarPrioridade(valor) {
@@ -29,10 +28,6 @@ this.estado == "activo" ? this.estado = "inactivo" : this.estado = "activo";
   
   alterarDescrição(novaDescrição) {
     this.descrição = novaDescrição;
-  }
-  
-  alterarNotas(novaNotas) {
-    this.notas = novaNotas;
   }
   
   adicionarTarefa(tarefa) { this.tarefas.push(tarefa); }
