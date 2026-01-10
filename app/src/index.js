@@ -129,22 +129,22 @@ botãoCriarToDoHTML.addEventListener("click", () => {
 });
 
 
-//HTML título ToDo
+//HTML input título ToDo
 const inputTítuloToDoHTML = document.querySelector("#input-titulo-todo");
 
-//HTML descrição ToDo
+//HTML input descrição ToDo
 const inputDescriçãoToDoHTML = document.querySelector("#input-descrição-todo");
 
-//HTML data ToDo
+//HTML input data ToDo
 const inputdataToDoHTML = document.querySelector("#input-data-termino");
 
 //html input prioridade ToDo
 const prioridadeHTML = document.getElementsByName("prioridade");
 
-//input estado ToDO
+//html input estado ToDO
 const estadoToDoHTML = document.getElementsByName("estado");
 
-//input tarefas ToDo
+//html input tarefas ToDo
 const tarefasToDoHTML = document.querySelector("#input-tarefas-todo");
 
 //fxs para guardar infos novo ToDo => criadas na secção seguinte
@@ -184,7 +184,7 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
         if (item.checked == true) { prioridadeToDo = item.value }
     });
 
-    ////input estado ToDo, mesma lógica para a prioridade
+    ////input estado ToDo, mesma lógica que a prioridade
     let estadoToDoArray = Array.from(estadoToDoHTML);
     estadoToDoArray.map((item) => {
         if (item.checked == true) { estadoToDo = item.value }
@@ -196,7 +196,6 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 
     ///criar o obj ToDo com os inputs
     listaToDos.push(new ToDo(títuloToDo, descriçãoToDo, dataTérminoToDo, prioridadeToDo, estadoToDo, tarefasToDo));
-    console.log(listaToDos);
 
     ////criar o html da caixa do toDo com as propriedades do obj
     títuloToDoHTML.textContent = listaToDos[0].título;
