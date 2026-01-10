@@ -167,8 +167,8 @@ botãoCriarProj.addEventListener("click", () => {
          botãoApagarToDoHTML.classList.add("apagar-todo");
          botãoApagarToDoHTML.textContent = "Apagar";
  
-     });
- }); */
+     }); */
+ }); 
 
 
 
