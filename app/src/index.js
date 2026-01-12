@@ -115,7 +115,7 @@ botãoFecharEdiçãoProjHTML.addEventListener("click", () => formulárioEditarPr
 //ToDos
 ///html inicial elementos ToDo
 const caixaToDosHTML = document.querySelector(".cartoes-todos");
-const toDoHTML = document.querySelector(".todo");
+/* const toDoHTML = document.querySelector(".todo"); */
 
 
 
@@ -129,32 +129,32 @@ listaToDos.forEach((e) => {
     ///título ToDo
     const títuloToDoHTML = document.createElement("div");
     títuloToDoHTML.classList.add("titulo-todo");
-    toDoHTML.appendChild(títuloToDoHTML);
+    toDoInicialHTML.appendChild(títuloToDoHTML);
     títuloToDoHTML.textContent = `${e.título}`;
     ///data término
     const dataTérminoHTML = document.createElement("div");
     dataTérminoHTML.classList.add("data-todo");
-    toDoHTML.appendChild(dataTérminoHTML);
+    toDoInicialHTML.appendChild(dataTérminoHTML);
     dataTérminoHTML.textContent = `${e.dataTérmino}`;
     ///descrição ToDo
     const descriçãoHTML = document.createElement("div");
     descriçãoHTML.classList.add("descrição-todo");
-    toDoHTML.appendChild(descriçãoHTML);
+    toDoInicialHTML.appendChild(descriçãoHTML);
     descriçãoHTML.textContent = `${e.descrição}`;
     ///prioridade ToDo
     const prioridadeHTML = document.createElement("div");
     prioridadeHTML.classList.add("prioridade");
-    toDoHTML.appendChild(prioridadeHTML);
+    toDoInicialHTML.appendChild(prioridadeHTML);
     prioridadeHTML.textContent = `${e.prioridade}`;
     ///estado ToDo
     const estadoToDoHTML = document.createElement("div");
     estadoToDoHTML.classList.add("estado");
-    toDoHTML.appendChild(estadoToDoHTML);
+    toDoInicialHTML.appendChild(estadoToDoHTML);
     estadoToDoHTML.textContent = `${e.estado}`;
     ///tarefas ToDo
     const tarefasToDoHTML = document.createElement("div");
     tarefasToDoHTML.classList.add("tarefas");
-    toDoHTML.appendChild(tarefasToDoHTML);
+    toDoInicialHTML.appendChild(tarefasToDoHTML);
     tarefasToDoHTML.textContent = `${e.tarefas}`;
 });
 
@@ -209,6 +209,8 @@ botãoCriarToDoHTML.addEventListener("click", () => {
 
 //fxs para guardar dados novo ToDo 
 botãoGuardarNovoToDoHTML.addEventListener("click", () => {
+    const toDoHTML = document.createElement("div");
+    toDoHTML.classList.add("todo");
 
     ///vars para os dados do ToDo
     let títuloToDo;
