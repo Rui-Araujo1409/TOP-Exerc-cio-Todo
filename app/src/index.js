@@ -201,9 +201,17 @@ if (listaToDos.length !== 0) {
 const formulárioCriarToDoHTML = document.querySelector("#modal-criar-todo");
 const botãoCriarToDoHTML = document.querySelector("#botão-criar-todo");
 
-////HTML botões guardar e fechar ToDo no modal
+////HTML para editar ToDo
+const formulárioEditarToDoHTML = document.querySelector("#modal-editar-todo");
+const botãoEditarToDoHTML = document.querySelector("#botão-editar-todo");
+
+////HTML botões guardar e fechar ToDo no modal Criar
 const botãoGuardarNovoToDoHTML = document.querySelector(".botao-guardar-todo");
 const botãofecharFormNovoToDoHTML = document.querySelector(".botao-fechar-todo");
+
+////HTML botões guardar e fechar ToDo no modal Editar
+const botãoGuardarEditarToDoHTML = document.querySelector(".botao-guardar-editar-todo");
+const botãofecharEditarToDoHTML = document.querySelector(".botao-fechar-editar-todo");
 
 //fx para abrir modal criar ToDo
 /* botãoCriarToDoHTML.addEventListener("click", () => {
@@ -341,6 +349,84 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 //fx para fechar form criar ToDo
 botãofecharFormNovoToDoHTML.addEventListener("click", () => formulárioCriarToDoHTML.close());
 
+///fx para editar ToDo
+botãoEditarToDoHTML.addEventListener("click", () => {
+    inputTítuloToDoHTML.value = "";
+    inputDescriçãoToDoHTML.value = "";
+    inputdataToDoHTML.value = "";
+    inputTarefasToDoHTML.value = "";
+    formulárioEditarToDoHTML.showModal();
+});
+
+////fx para guardar edição ToDo
+botãoGuardarEditarToDoHTML.addEventListener("click", () => {
+     ///vars para os dados do ToDo
+    let títuloToDo;
+    let descriçãoToDo;
+    let dataTérminoToDo;
+    let prioridadeToDo;
+    let estadoToDo;
+    let tarefasToDo;
+
+    const títuloToDoHTML = document.querySelector(".titulo-todo");
+    const dataTérminoHTML = document.querySelector(".data-todo");
+    const descriçãoHTML = document.querySelector(".descrição-todo");
+    const prioridadeHTML = document.querySelector(".prioridade");
+    const estadoToDoHTML = document.querySelector(".estado");
+    const tarefasToDoHTML = document.querySelector(".tarefas");
+
+     ////input título ToDo
+    títuloToDo = inputTítuloToDoHTML.value;
+
+    ////input descrição ToDo
+    descriçãoToDo = inputDescriçãoToDoHTML.value;
+
+    ////input data término ToDo
+    dataTérminoToDo = inputdataToDoHTML.value;
+
+    ////input prioridade ToDo, obter nome e obter o valor do elemento seleccionado com o método checked
+    //vai dar um NodeList => converter para um array
+    let prioridadeArray = Array.from(inputPrioridadeHTML);
+    prioridadeArray.map((item) => {
+        if (item.checked == true) { prioridadeToDo = item.value }
+
+    });
+    ////input estado ToDo, mesma lógica que a prioridade
+    let estadoToDoArray = Array.from(inputEstadoToDoHTML);
+    estadoToDoArray.map((item) => {
+        if (item.checked == true) { estadoToDo = item.value }
+
+    });
+    ////input tarefas ToDo
+    let tarefasTexto = inputTarefasToDoHTML.value;
+    tarefasToDo = tarefasTexto.split(", ");
+
+    ///criar o obj ToDo com os inputs
+    listaToDos.push(new ToDo(títuloToDo, descriçãoToDo, dataTérminoToDo, prioridadeToDo, estadoToDo, tarefasToDo));
+
+    ////criar o html da caixa do toDo com as propriedades do obj
+    ////usar uma var nova com o obj apenas para o novo ToDo
+    let novoObjToDo = listaToDos.slice(-1);
+    títuloToDoHTML.textContent = novoObjToDo[0].título;
+    dataTérminoHTML.textContent = novoObjToDo[0].dataTérmino;
+    descriçãoHTML.textContent = novoObjToDo[0].descrição;
+    prioridadeHTML.textContent = novoObjToDo[0].prioridade;
+    estadoToDoHTML.textContent = novoObjToDo[0].estado;
+    tarefasToDoHTML.textContent = novoObjToDo[0].tarefas;
+
+    ////guardar os objectos
+    localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
+
+
+    ////fechar o modal quando clica guardar
+    formulárioCriarToDoHTML.close();
+
+})
+
+
+///fx para fechar modal editar ToDo
+
+botãofecharEditarToDoHTML.addEventListener("click", () => formulárioEditarToDoHTML.close());
 
 ////adicionar botões editar, expandir e apagar ToDo
 const adicionarBotõesToDo = () => {
@@ -356,6 +442,7 @@ const adicionarBotõesToDo = () => {
     botãoApagarToDoHTML.textContent = "Apagar";
     botõesToDoHTML.appendChild(botãoApagarToDoHTML);
 }
+
 
 
 
