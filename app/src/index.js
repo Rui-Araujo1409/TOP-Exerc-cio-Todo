@@ -8,12 +8,11 @@ import { format, compareAsc } from "date-fns";
 //vars com os arrays dos conteúdos Utilizadores, Projectos e ToDos
 
 
-let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
-let listaToDos = JSON.parse(localStorage.getItem("listaToDos"));
-console.log(listaProjectos);
-console.log(listaToDos);
-let utilizador = listaProjectos[0].utilizador;
-console.log(utilizador);
+/* let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
+let listaToDos = JSON.parse(localStorage.getItem("listaToDos")); */
+let listaProjectos = [];
+let listaToDos = [];
+let utilizador;
 
 
 
@@ -193,9 +192,6 @@ if (listaToDos.length !== 0) {
 }
 
 
-
-
-
 ///Modal
 ////HTML modal criar ToDo + botão
 const formulárioCriarToDoHTML = document.querySelector("#modal-criar-todo");
@@ -203,7 +199,8 @@ const botãoCriarToDoHTML = document.querySelector("#botão-criar-todo");
 
 ////HTML para editar ToDo
 const formulárioEditarToDoHTML = document.querySelector("#modal-editar-todo");
-const botãoEditarToDoHTML = document.querySelector("#botão-editar-todo");
+const botãoEditarToDoHTML = document.querySelector(".botão-editar-todo");
+const botãoApagarToDoHTML = document.querySelector(".botão-apagar-toodo");
 
 ////HTML botões guardar e fechar ToDo no modal Criar
 const botãoGuardarNovoToDoHTML = document.querySelector(".botao-guardar-todo");
@@ -421,8 +418,18 @@ botãoGuardarEditarToDoHTML.addEventListener("click", () => {
     ////fechar o modal quando clica guardar
     formulárioCriarToDoHTML.close();
 
-})
+});
 
+////fx para apagar ToDo
+botãoApagarToDoHTML.addEventListener("click", () => {
+    //identificar no array dos todos o todo que tem o título ==, sacar o index e retirar com splice(index,1);
+    alert("clicou em apagar");
+    listaToDos.map((el,index) => {
+        if(el == "ToDo3") {
+            console.log(el[index]);
+        }
+    }) 
+});
 
 ///fx para fechar modal editar ToDo
 
@@ -434,11 +441,11 @@ const adicionarBotõesToDo = () => {
     botõesToDoHTML.classList.add("botoes-todos");
     toDoHTML.appendChild(botõesToDoHTML);
     const botãoEditarToDoHTML = document.createElement("button");
-    botãoEditarToDoHTML.setAttribute("id", "botão-editar-todo");
+    botãoEditarToDoHTML.classList.add("botão-editar-todo");
     botãoEditarToDoHTML.textContent = "Editar";
     botõesToDoHTML.appendChild(botãoEditarToDoHTML);
     const botãoApagarToDoHTML = document.createElement("button");
-    botãoApagarToDoHTML.setAttribute("id", "botão-apagar-toodo");
+    botãoApagarToDoHTML.classList.add("botão-apagar-todo");
     botãoApagarToDoHTML.textContent = "Apagar";
     botõesToDoHTML.appendChild(botãoApagarToDoHTML);
 }
