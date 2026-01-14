@@ -187,9 +187,7 @@ const conteúdosToDoiniciais = () => {
 };
 
 
-if (listaToDos.length !== 0) {
-    conteúdosToDoiniciais();
-}
+
 
 
 ///Modal
@@ -199,8 +197,8 @@ const botãoCriarToDoHTML = document.querySelector("#botão-criar-todo");
 
 ////HTML para editar ToDo
 const formulárioEditarToDoHTML = document.querySelector("#modal-editar-todo");
-const botãoEditarToDoHTML = document.querySelector(".botão-editar-todo");
-const botãoApagarToDoHTML = document.querySelector(".botão-apagar-toodo");
+/* const botãoEditarToDoHTML = document.querySelector(".botão-editar-todo");
+const botãoApagarToDoHTML = document.querySelector(".botão-apagar-toodo"); */
 
 ////HTML botões guardar e fechar ToDo no modal Criar
 const botãoGuardarNovoToDoHTML = document.querySelector(".botao-guardar-todo");
@@ -208,7 +206,7 @@ const botãofecharFormNovoToDoHTML = document.querySelector(".botao-fechar-todo"
 
 ////HTML botões guardar e fechar ToDo no modal Editar
 const botãoGuardarEditarToDoHTML = document.querySelector(".botao-guardar-editar-todo");
-const botãofecharEditarToDoHTML = document.querySelector(".botao-fechar-editar-todo");
+const botãoFecharEditarToDoHTML = document.querySelector(".botao-fechar-editar-todo");
 
 //fx para abrir modal criar ToDo
 /* botãoCriarToDoHTML.addEventListener("click", () => {
@@ -346,14 +344,7 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 //fx para fechar form criar ToDo
 botãofecharFormNovoToDoHTML.addEventListener("click", () => formulárioCriarToDoHTML.close());
 
-///fx para editar ToDo
-botãoEditarToDoHTML.addEventListener("click", () => {
-    inputTítuloToDoHTML.value = "";
-    inputDescriçãoToDoHTML.value = "";
-    inputdataToDoHTML.value = "";
-    inputTarefasToDoHTML.value = "";
-    formulárioEditarToDoHTML.showModal();
-});
+
 
 ////fx para guardar edição ToDo
 botãoGuardarEditarToDoHTML.addEventListener("click", () => {
@@ -420,6 +411,37 @@ botãoGuardarEditarToDoHTML.addEventListener("click", () => {
 
 });
 
+let botãoEditarToDoHTML;
+let botãoApagarToDoHTML;
+
+///fx para fechar modal editar ToDo
+
+botãoFecharEditarToDoHTML.addEventListener("click", () => formulárioEditarToDoHTML.close());
+
+////adicionar botões editar, expandir e apagar ToDo
+const adicionarBotõesToDo = () => {
+    const toDoHTML = document.querySelector(".todo")
+    const botõesToDoHTML = document.createElement("div");
+    botõesToDoHTML.classList.add("botoes-todos");
+    toDoHTML.appendChild(botõesToDoHTML);
+    botãoEditarToDoHTML = document.createElement("button");
+    botãoEditarToDoHTML.classList.add("botão-editar-todo");
+    botãoEditarToDoHTML.textContent = "Editar";
+    botõesToDoHTML.appendChild(botãoEditarToDoHTML);
+    botãoApagarToDoHTML = document.createElement("button");
+    botãoApagarToDoHTML.classList.add("botão-apagar-todo");
+    botãoApagarToDoHTML.textContent = "Apagar";
+    botõesToDoHTML.appendChild(botãoApagarToDoHTML);
+
+    ///fx para editar ToDo
+botãoEditarToDoHTML.addEventListener("click", () => {
+    inputTítuloToDoHTML.value = "";
+    inputDescriçãoToDoHTML.value = "";
+    inputdataToDoHTML.value = "";
+    inputTarefasToDoHTML.value = "";
+    formulárioEditarToDoHTML.showModal();
+});
+
 ////fx para apagar ToDo
 botãoApagarToDoHTML.addEventListener("click", () => {
     //identificar no array dos todos o todo que tem o título ==, sacar o index e retirar com splice(index,1);
@@ -431,29 +453,26 @@ botãoApagarToDoHTML.addEventListener("click", () => {
     }) 
 });
 
-///fx para fechar modal editar ToDo
-
-botãofecharEditarToDoHTML.addEventListener("click", () => formulárioEditarToDoHTML.close());
-
-////adicionar botões editar, expandir e apagar ToDo
-const adicionarBotõesToDo = () => {
-    const botõesToDoHTML = document.createElement("div");
-    botõesToDoHTML.classList.add("botoes-todos");
-    toDoHTML.appendChild(botõesToDoHTML);
-    const botãoEditarToDoHTML = document.createElement("button");
-    botãoEditarToDoHTML.classList.add("botão-editar-todo");
-    botãoEditarToDoHTML.textContent = "Editar";
-    botõesToDoHTML.appendChild(botãoEditarToDoHTML);
-    const botãoApagarToDoHTML = document.createElement("button");
-    botãoApagarToDoHTML.classList.add("botão-apagar-todo");
-    botãoApagarToDoHTML.textContent = "Apagar";
-    botõesToDoHTML.appendChild(botãoApagarToDoHTML);
 }
 
+if(listaToDos.length === 0) {
+    alert("não há ToDo...");
+    listaToDos.push(new ToDo("Novo ToDo"));
 
+    const toDoHTML = document.createElement("div");
+    toDoHTML.classList.add("todo");
+    caixaToDosHTML.appendChild(toDoHTML);
+    
+    const títuloToDoHTML = document.createElement("div");
+    títuloToDoHTML.classList.add("titulo-todo");
+    toDoHTML.appendChild(títuloToDoHTML);
+    títuloToDoHTML.textContent = listaToDos[0].título;
 
-
-
+        adicionarBotõesToDo();
+   
+} else {
+     conteúdosToDoiniciais();  
+};
 
 //fx para criar Projecto novo
 /* const botãoCriarProj = document.querySelector("#botao-criar-proj-js");
