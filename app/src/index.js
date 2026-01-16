@@ -134,12 +134,11 @@ const caixaToDosHTML = document.querySelector(".cartoes-todos");
 //Conteúdos iniciais (se houverem)
 
 const conteúdosToDoiniciais = () => {
-    console.log(listaToDos);
+
     listaToDos.forEach((e) => {
 
         const toDoInicialHTML = document.createElement("div");
         toDoInicialHTML.classList.add("todo");
-
         caixaToDosHTML.appendChild(toDoInicialHTML);
         ///título ToDo
         const títuloToDoHTML = document.createElement("div");
@@ -188,7 +187,7 @@ const conteúdosToDoiniciais = () => {
     });
 };
 
-if(listaToDos.length !== 0) {
+if (listaToDos.length !== 0) {
     conteúdosToDoiniciais();
 };
 
@@ -200,8 +199,7 @@ const botãoCriarToDoHTML = document.querySelector("#botão-criar-todo");
 
 ////HTML para editar ToDo
 const formulárioEditarToDoHTML = document.querySelector("#modal-editar-todo");
-/* const botãoEditarToDoHTML = document.querySelector(".botão-editar-todo");
-const botãoApagarToDoHTML = document.querySelector(".botão-apagar-toodo"); */
+
 
 ////HTML botões guardar e fechar ToDo no modal Criar
 const botãoGuardarNovoToDoHTML = document.querySelector(".botao-guardar-todo");
@@ -341,12 +339,12 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
     const botõesToDoHTML = document.createElement("div");
     botõesToDoHTML.classList.add("botoes-todos");
     toDoHTML.appendChild(botõesToDoHTML);
-    botãoEditarToDoHTML = document.createElement("button");
+    const botãoEditarToDoHTML = document.createElement("button");
     botãoEditarToDoHTML.classList.add("botão-editar-todo");
     botãoEditarToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
     botãoEditarToDoHTML.textContent = "Editar";
     botõesToDoHTML.appendChild(botãoEditarToDoHTML);
-    botãoApagarToDoHTML = document.createElement("button");
+    const botãoApagarToDoHTML = document.createElement("button");
     botãoApagarToDoHTML.classList.add("botão-apagar-todo");
     botãoApagarToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
     botãoApagarToDoHTML.textContent = "Apagar";
@@ -424,29 +422,29 @@ botãoGuardarEditarToDoHTML.addEventListener("click", () => {
     ////guardar os objectos
     localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
 
-console.log(novoObjToDo);
+    console.log(novoObjToDo);
     ////fechar o modal quando clica guardar
     formulárioCriarToDoHTML.close();
 
 });
 
-let botãoEditarToDoHTML;
-let botãoApagarToDoHTML;
 
 ///fx para fechar modal editar ToDo
 
 botãoFecharEditarToDoHTML.addEventListener("click", () => formulárioEditarToDoHTML.close());
 
 
-///fx para editar ToDo
-/* botãoEditarToDoHTML.addEventListener("click", () => {
-    inputTítuloToDoHTML.value = "";
-    inputDescriçãoToDoHTML.value = "";
-    inputDataToDoHTML.value = "";
-    inputTarefasToDoHTML.value = "";
-    formulárioEditarToDoHTML.showModal();
+///fx para editar ToDo (usar o event delegation porque o html do botão só é criado posteriormente)
+caixaToDosHTML.addEventListener("click", (e) => {
+    if (e.target.id == "botão-editar-todo") {
+        inputTítuloToDoHTML.value = "";
+        inputDescriçãoToDoHTML.value = "";
+        inputDataToDoHTML.value = "";
+        inputTarefasToDoHTML.value = "";
+        formulárioEditarToDoHTML.showModal();
+    }
 });
- */
+
 ////fx para apagar ToDo
 /* botãoApagarToDoHTML.addEventListener("click", () => {
     //identificar no array dos todos o todo que tem o título ==, sacar o index e retirar com splice(index,1);
