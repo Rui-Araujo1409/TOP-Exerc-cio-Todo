@@ -389,7 +389,7 @@ botãoGuardarEditarToDoHTML.addEventListener("click", () => {
     descriçãoToDo = inputDescriçãoToDoHTML.value;
 
     ////input data término ToDo
-    dataTérminoToDo = inputdataToDoHTML.value;
+    dataTérminoToDo = inputDataToDoHTML.value;
 
     ////input prioridade ToDo, obter nome e obter o valor do elemento seleccionado com o método checked
     //vai dar um NodeList => converter para um array
