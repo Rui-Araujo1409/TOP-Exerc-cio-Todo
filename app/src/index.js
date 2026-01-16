@@ -188,6 +188,8 @@ const conteúdosToDoiniciais = () => {
         botõesToDoHTML.appendChild(botãoApagarToDoHTML);
 
     });
+
+    
 };
 
 if (listaToDos.length !== 0) {
@@ -523,5 +525,5 @@ caixaToDosHTML.addEventListener("click", (e) => {
     prioridadeHTML.textContent = novoObjToDo[0].prioridade;
     estadoToDoHTML.textContent = novoObjToDo[0].estado;
     tarefasToDoHTML.textContent = novoObjToDo[0].tarefas;
-  }
+  };
    
