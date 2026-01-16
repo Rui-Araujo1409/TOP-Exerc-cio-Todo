@@ -1,6 +1,7 @@
 export default class Projecto {
   constructor(título, utilizadores, todos){
     this.título = título;
+    this.id = Math.floor(Math.random()*100+1);
   this.utilizador = [];
     this.todos = [];
   } 

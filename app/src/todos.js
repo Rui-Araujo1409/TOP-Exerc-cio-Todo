@@ -8,6 +8,7 @@ export default class ToDo {
   this.prioridade = prioridade;
     this.estado = estado;
     this.tarefas = tarefas;
+    this.id = Math.floor(Math.random()*100+1);
   }
   
   alterarPrioridade(valor) {
