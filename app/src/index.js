@@ -177,19 +177,19 @@ const conteúdosToDoiniciais = () => {
         botõesToDoHTML.classList.add("botoes-todos");
         toDoInicialHTML.appendChild(botõesToDoHTML);
         const botãoEditarToDoHTML = document.createElement("button");
-        botãoEditarToDoHTML.setAttribute("id", "botão-editar-todo");
+        botãoEditarToDoHTML.classList.add("botão-editar-todo");
         botãoEditarToDoHTML.setAttribute("data-id", `${e.id}`);
         botãoEditarToDoHTML.textContent = "Editar";
         botõesToDoHTML.appendChild(botãoEditarToDoHTML);
         const botãoApagarToDoHTML = document.createElement("button");
-        botãoApagarToDoHTML.setAttribute("id", "botão-apagar-toodo");
+        botãoApagarToDoHTML.classList.add("botão-apagar-toodo");
         botãoApagarToDoHTML.setAttribute("data-id", `${e.id}`);
         botãoApagarToDoHTML.textContent = "Apagar";
         botõesToDoHTML.appendChild(botãoApagarToDoHTML);
 
     });
 
-    
+
 };
 
 if (listaToDos.length !== 0) {
@@ -368,17 +368,27 @@ botãofecharFormNovoToDoHTML.addEventListener("click", () => formulárioCriarToD
 
 
 
-////fx para guardar edição ToDo
+//fx para guardar edição ToDo
 botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
-    if(e.target)
-  /*   
-    ///vars para os dados do ToDo
+
+    ///buscar o id do ToDo através do ID do botão editar
+    const dataId = formulárioEditarToDoHTML.dataset.id;
+    ////pesquisar no array listaToDos o obj com o ID e obter o index
+    const indexObjEditar = listaToDos.findIndex(item => item.id == dataId);
+    ///guardar o valor dos inputs (em vars?)
+    ////vars para os dados do ToDo
     let títuloToDo;
     let descriçãoToDo;
     let dataTérminoToDo;
     let prioridadeToDo;
     let estadoToDo;
     let tarefasToDo;
+
+ 
+
+    ///guardar o novo array listaToDos no localStorage
+
+    ///fechar o modal
 
     const títuloToDoHTML = document.querySelector(".titulo-todo");
     const dataTérminoHTML = document.querySelector(".data-todo");
@@ -389,7 +399,8 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
 
     ////input título ToDo
     títuloToDo = inputTítuloToDoHTML.value;
-    
+    console.log(títuloToDo);
+
 
     ////input descrição ToDo
     descriçãoToDo = inputDescriçãoToDoHTML.value;
@@ -414,25 +425,15 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
     let tarefasTexto = inputTarefasToDoHTML.value;
     tarefasToDo = tarefasTexto.split(", ");
 
-/*     ///criar o obj ToDo com os inputs
-    listaToDos.push(new ToDo(títuloToDo, descriçãoToDo, dataTérminoToDo, prioridadeToDo, estadoToDo, tarefasToDo));
-
-    ////criar o html da caixa do toDo com as propriedades do obj
-    ////usar uma var nova com o obj apenas para o novo ToDo
-    let novoObjToDo = listaToDos.slice(-1); */
-/*     títuloToDoHTML.textContent = novoObjToDo[0].título;
-    dataTérminoHTML.textContent = novoObjToDo[0].dataTérmino;
-    descriçãoHTML.textContent = novoObjToDo[0].descrição;
-    prioridadeHTML.textContent = novoObjToDo[0].prioridade;
-    estadoToDoHTML.textContent = novoObjToDo[0].estado;
-    tarefasToDoHTML.textContent = novoObjToDo[0].tarefas; */
+    ///mudar os valores actuais dos vários campos pelos novos valores (das vars?)
+    listaToDos[indexObjEditar].título = títuloToDo;
 
     ////guardar os objectos
-    localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
+    /*  localStorage.setItem("listaToDos", JSON.stringify(listaToDos)); */
 
-   
+
     ////fechar o modal quando clica guardar
-    formulárioCriarToDoHTML.close();
+    /*   formulárioCriarToDoHTML.close(); */
 
 });
 
@@ -444,11 +445,15 @@ botãoFecharEditarToDoHTML.addEventListener("click", () => formulárioEditarToDo
 
 ///fx para editar ToDo (usar o event delegation porque o html do botão só é criado posteriormente)
 caixaToDosHTML.addEventListener("click", (e) => {
-    if (e.target.id == "botão-editar-todo") {
+    console.log(e.target.dataset.id);
+    if (e.target.className == "botão-editar-todo") {
         inputTítuloToDoHTML.value = "";
         inputDescriçãoToDoHTML.value = "";
         inputDataToDoHTML.value = "";
         inputTarefasToDoHTML.value = "";
+        //atribuir ao botão editar ToDo o id do Todo clicado
+        const dataId = e.target.dataset.id;
+        formulárioEditarToDoHTML.setAttribute("data-id", `${dataId}`);
         formulárioEditarToDoHTML.showModal();
     }
 });
@@ -467,11 +472,11 @@ caixaToDosHTML.addEventListener("click", (e) => {
 
 
 
-  //fx para editar conteúdos ToDo
+//fx para editar conteúdos ToDo
 
-  const editarToDo = (listaToDos) => {
+const editarToDo = (listaToDos) => {
 
- ///vars para os dados do ToDo
+    ///vars para os dados do ToDo
     let títuloToDo;
     let descriçãoToDo;
     let dataTérminoToDo;
@@ -488,7 +493,7 @@ caixaToDosHTML.addEventListener("click", (e) => {
 
     ////input título ToDo
     títuloToDo = inputTítuloToDoHTML.value;
-    
+
 
     ////input descrição ToDo
     descriçãoToDo = inputDescriçãoToDoHTML.value;
@@ -513,17 +518,16 @@ caixaToDosHTML.addEventListener("click", (e) => {
     let tarefasTexto = inputTarefasToDoHTML.value;
     tarefasToDo = tarefasTexto.split(", ");
 
-/*     ///criar o obj ToDo com os inputs
-    listaToDos.push(new ToDo(títuloToDo, descriçãoToDo, dataTérminoToDo, prioridadeToDo, estadoToDo, tarefasToDo));
-
-    ////criar o html da caixa do toDo com as propriedades do obj
-    ////usar uma var nova com o obj apenas para o novo ToDo
-    let novoObjToDo = listaToDos.slice(-1); */
+    /*     ///criar o obj ToDo com os inputs
+        listaToDos.push(new ToDo(títuloToDo, descriçãoToDo, dataTérminoToDo, prioridadeToDo, estadoToDo, tarefasToDo));
+    
+        ////criar o html da caixa do toDo com as propriedades do obj
+        ////usar uma var nova com o obj apenas para o novo ToDo
+        let novoObjToDo = listaToDos.slice(-1); */
     títuloToDoHTML.textContent = novoObjToDo[0].título;
     dataTérminoHTML.textContent = novoObjToDo[0].dataTérmino;
     descriçãoHTML.textContent = novoObjToDo[0].descrição;
     prioridadeHTML.textContent = novoObjToDo[0].prioridade;
     estadoToDoHTML.textContent = novoObjToDo[0].estado;
     tarefasToDoHTML.textContent = novoObjToDo[0].tarefas;
-  };
-   
+};
