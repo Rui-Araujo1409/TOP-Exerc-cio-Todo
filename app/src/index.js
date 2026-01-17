@@ -225,23 +225,24 @@ const botãoFecharEditarToDoHTML = document.querySelector(".botao-fechar-editar-
 }); */
 
 
-//HTML input título ToDo
-const inputTítuloToDoHTML = document.querySelector("#input-titulo-todo");
+//HTML inputs Novo ToDo
+///título
+const inputTítuloToDoHTML = document.querySelector("#input-titulo-todo-novo");
 
-//HTML input descrição ToDo
-const inputDescriçãoToDoHTML = document.querySelector("#input-descrição-todo");
+///descrição
+const inputDescriçãoToDoHTML = document.querySelector("#input-descrição-todo-novo");
 
-//HTML input data ToDo
-const inputDataToDoHTML = document.querySelector("#input-data-termino");
+///data
+const inputDataToDoHTML = document.querySelector("#input-data-termino-novo");
 
-//html input prioridade ToDo
-const inputPrioridadeHTML = document.getElementsByName("prioridade");
+///prioridade
+const inputPrioridadeHTML = document.getElementsByName("prioridade-novo");
 
-//html input estado ToDO
-const inputEstadoToDoHTML = document.getElementsByName("estado");
+///estado
+const inputEstadoToDoHTML = document.getElementsByName("estado-novo");
 
-//html input tarefas ToDo
-const inputTarefasToDoHTML = document.querySelector("#input-tarefas-todo");
+///tarefas
+const inputTarefasToDoHTML = document.querySelector("#input-tarefas-todo-novo");
 
 //abrir form Novo ToDo
 botãoCriarToDoHTML.addEventListener("click", () => {
@@ -366,7 +367,24 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 //fx para fechar form criar ToDo
 botãofecharFormNovoToDoHTML.addEventListener("click", () => formulárioCriarToDoHTML.close());
 
+//HTML inputs Novo ToDo
+///título
+const inputEditarTítuloToDo = document.querySelector("#input-titulo-todo");
 
+///descrição
+const inputEditarDescriçãoToDo = document.querySelector("#input-descrição-todo");
+
+///data
+const inputEditarDataToDo = document.querySelector("#input-data-termino");
+
+///prioridade
+const inputEditarPrioridadeToDo = document.getElementsByName("prioridade");
+
+///estado
+const inputEditarEstadoToDo = document.getElementsByName("estado");
+
+///tarefas
+const inputEditarTarefasToDo= document.querySelector("#input-tarefas-todo");
 
 //fx para guardar edição ToDo
 botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
@@ -384,7 +402,7 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
     let estadoToDo;
     let tarefasToDo;
 
- 
+
 
     ///guardar o novo array listaToDos no localStorage
 
@@ -398,35 +416,53 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
     const tarefasToDoHTML = document.querySelector(".tarefas");
 
     ////input título ToDo
-    títuloToDo = inputTítuloToDoHTML.value;
+    títuloToDo = inputEditarTítuloToDo.value;
     console.log(títuloToDo);
 
 
     ////input descrição ToDo
-    descriçãoToDo = inputDescriçãoToDoHTML.value;
+    descriçãoToDo = inputEditarDescriçãoToDo.value;
+    console.log(descriçãoToDo);
 
     ////input data término ToDo
-    dataTérminoToDo = inputDataToDoHTML.value;
+    dataTérminoToDo = inputEditarDataToDo.value;
+    console.log(dataTérminoToDo);
 
     ////input prioridade ToDo, obter nome e obter o valor do elemento seleccionado com o método checked
     //vai dar um NodeList => converter para um array
-    let prioridadeArray = Array.from(inputPrioridadeHTML);
+    let prioridadeArray = Array.from(inputEditarPrioridadeToDo);
     prioridadeArray.map((item) => {
         if (item.checked == true) { prioridadeToDo = item.value }
-
+console.log(prioridadeToDo);
     });
     ////input estado ToDo, mesma lógica que a prioridade
-    let estadoToDoArray = Array.from(inputEstadoToDoHTML);
+    let estadoToDoArray = Array.from(inputEditarEstadoToDo);
     estadoToDoArray.map((item) => {
         if (item.checked == true) { estadoToDo = item.value }
-
+console.log(estadoToDo);
     });
     ////input tarefas ToDo
-    let tarefasTexto = inputTarefasToDoHTML.value;
+    let tarefasTexto = inputEditarTarefasToDo.value;
     tarefasToDo = tarefasTexto.split(", ");
+    console.log(tarefasToDo);
 
     ///mudar os valores actuais dos vários campos pelos novos valores (das vars?)
+
     listaToDos[indexObjEditar].título = títuloToDo;
+    listaToDos[indexObjEditar].dataTérmino = dataTérminoToDo;
+    listaToDos[indexObjEditar].descrição = descriçãoToDo;
+    listaToDos[indexObjEditar].prioridade = prioridadeToDo;
+    listaToDos[indexObjEditar].estado = estadoToDo;
+    listaToDos[indexObjEditar].tarefas = tarefasToDo;
+    
+
+     //preencher os dados no HTML
+    títuloToDoHTML.textContent = listaToDos[indexObjEditar].título;
+    dataTérminoHTML.textContent = listaToDos[indexObjEditar].dataTérmino;
+    descriçãoHTML.textContent = listaToDos[indexObjEditar].descrição;
+    prioridadeHTML.textContent = listaToDos[indexObjEditar].prioridade;
+    estadoToDoHTML.textContent = listaToDos[indexObjEditar].estado;
+    tarefasToDoHTML.textContent = listaToDos[indexObjEditar].tarefas;
 
     ////guardar os objectos
     /*  localStorage.setItem("listaToDos", JSON.stringify(listaToDos)); */
