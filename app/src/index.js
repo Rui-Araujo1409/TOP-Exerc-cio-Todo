@@ -22,6 +22,7 @@ if (listaProjectos.length === 0) {
     listaProjectos.push(new Projecto("Novo Projecto"));
     utilizador = "Novo utilizador";
     listaProjectos[0].adicionarUtilizadorProjecto(utilizador);
+    listaProjectos[0].id = Math.floor(Math.random() * 100 + 1);
 };
 
 
@@ -37,7 +38,8 @@ projectoHTML.setAttribute("data-id", `${listaProjectos[0].id}`);
 //html formulário criar projecto + botões
 const formulárioCriarProjHTML = document.querySelector("#modal-criar-proj");
 const botãoAbrirFormNovoProjHTML = document.querySelector("#botao-criar-proj-js");
-const botãoFecharFormNovoProjHTML = document.querySelector(".botao-fechar-proj");
+const botãoFecharFormNovoProjHTML = document.querySelector("#botao-fechar-proj-novo");
+const botãoGuardarNovoProjHTML = document.querySelector("#botao-guardar-proj-novo");
 
 //html formulário editar projecto + botões
 const formulárioEditarProjHTML = document.querySelector("#modal-editar-proj");
@@ -52,20 +54,24 @@ botõesProjHTML.classList.add("botoes-projecto");
 let botãoEditarProjHTML = document.createElement("button");
 botõesProjHTML.appendChild(botãoEditarProjHTML);
 botãoEditarProjHTML.classList.add("editar-proj");
+botãoEditarProjHTML.setAttribute("data-id", `${listaProjectos[0].id}`);
 botãoEditarProjHTML.textContent = "Editar Projecto";
 let botãoApagarProjHML = document.createElement("button");
 botõesProjHTML.appendChild(botãoApagarProjHML);
 botãoApagarProjHML.classList.add("apagar-proj");
+botãoApagarProjHML.setAttribute("data-id", `${listaProjectos[0].id}`);
 botãoApagarProjHML.textContent = "Apagar Projecto";
 
 //Título projecto
 const títuloProjHTML = document.querySelector(".titulo-projecto");
+títuloProjHTML.setAttribute("data-id", `${listaProjectos[0].id}`);
 títuloProjHTML.textContent = listaProjectos[0].título;
 
 
 //utilizadores projecto
 const utilizadoresProjHTML = document.querySelector(".utilizadores");
-utilizadoresProjHTML.textContent = utilizador;
+utilizadoresProjHTML.setAttribute("data-id", `${listaProjectos[0].id}`);
+utilizadoresProjHTML.textContent = `${listaProjectos[0].utilizador}`;
 
 
 //fx para abrir form de novo projecto
@@ -85,12 +91,18 @@ botãoFecharFormNovoProjHTML.addEventListener("click", () => {
 //lógica para editar o Projecto
 ///botões
 ////quando clica em editar projecto
-botãoEditarProjHTML.addEventListener("click", () => {
-    //limpar os inputs
-    inputEditarTítuloProjHTML.value = "";
-    inputEditarUtilizadoresProjHTML.value = "";
-    //abre o modal
-    formulárioEditarProjHTML.showModal();
+botõesProjHTML.addEventListener("click", (e) => {
+    if (e.target.className = "editar-proj") {
+        const dataId = e.target.dataset.id;
+        console.log(dataId);
+        //limpar os inputs
+        inputEditarTítuloProjHTML.value = "";
+        inputEditarUtilizadoresProjHTML.value = "";
+        //abre o modal
+        formulárioEditarProjHTML.setAttribute("data-id", `${dataId}`);
+        formulárioEditarProjHTML.showModal();
+    }
+
 });
 
 ////editar o título e utilizador
@@ -172,13 +184,13 @@ const conteúdosToDoiniciais = () => {
         toDoInicialHTML.appendChild(tarefasToDoHTML);
         tarefasToDoHTML.textContent = `${e.tarefas}`;
 
-          ///atrbuir os id nos campos
-    títuloToDoHTML.setAttribute("data-id", `${e.id}`);
-    dataTérminoHTML.setAttribute("data-id", `${e.id}`);
-    descriçãoHTML.setAttribute("data-id", `${e.id}`);
-    prioridadeHTML.setAttribute("data-id", `${e.id}`);
-    estadoToDoHTML.setAttribute("data-id", `${e.id}`);
-    tarefasToDoHTML.setAttribute("data-id", `${e.id}`);
+        ///atrbuir os id nos campos
+        títuloToDoHTML.setAttribute("data-id", `${e.id}`);
+        dataTérminoHTML.setAttribute("data-id", `${e.id}`);
+        descriçãoHTML.setAttribute("data-id", `${e.id}`);
+        prioridadeHTML.setAttribute("data-id", `${e.id}`);
+        estadoToDoHTML.setAttribute("data-id", `${e.id}`);
+        tarefasToDoHTML.setAttribute("data-id", `${e.id}`);
 
 
         const botõesToDoHTML = document.createElement("div");
@@ -399,7 +411,7 @@ const inputEditarPrioridadeToDo = document.getElementsByName("prioridade");
 const inputEditarEstadoToDo = document.getElementsByName("estado");
 
 ///tarefas
-const inputEditarTarefasToDo= document.querySelector("#input-tarefas-todo");
+const inputEditarTarefasToDo = document.querySelector("#input-tarefas-todo");
 
 //fx para guardar edição ToDo
 botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
@@ -468,7 +480,7 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
     listaToDos[indexObjEditar].prioridade = prioridadeToDo;
     listaToDos[indexObjEditar].estado = estadoToDo;
     listaToDos[indexObjEditar].tarefas = tarefasToDo;
-    
+
     ///preencher os dados no HTML
     títuloToDoHTML.textContent = listaToDos[indexObjEditar].título;
     dataTérminoHTML.textContent = listaToDos[indexObjEditar].dataTérmino;
@@ -493,7 +505,6 @@ botãoFecharEditarToDoHTML.addEventListener("click", () => formulárioEditarToDo
 
 ///fx para editar ToDo (usar o event delegation porque o html do botão só é criado posteriormente)
 caixaToDosHTML.addEventListener("click", (e) => {
-    console.log(e.target.dataset.id);
     if (e.target.className == "botão-editar-todo") {
         inputTítuloToDoHTML.value = "";
         inputDescriçãoToDoHTML.value = "";
