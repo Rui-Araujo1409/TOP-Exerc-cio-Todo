@@ -9,13 +9,12 @@ import { format, compareAsc } from "date-fns";
 let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
 let listaToDos = JSON.parse(localStorage.getItem("listaToDos"));
 let utilizador;
+console.log(listaToDos);
 
 //elementos html
 ///Projecto
 //Elemento Projecto e filhos
 const caixaProjectosHTML = document.querySelector("#caixa-projectos");
-
-
 
 //html formulário criar projecto + botões
 const formulárioCriarProjHTML = document.querySelector("#modal-criar-proj");
@@ -32,15 +31,17 @@ const inputEditarUtilizadoresProjHTML = document.querySelector("#editar-user-pro
 const inputTítuloNovoProj = document.querySelector("#input-titulo-proj");
 const inputUtilizadoresNovoProj = document.querySelector("#input-utilizadores-proj");
 
+
 //fx para conteúdos Projecto Iniciais
 
 const conteúdosProjIniciais = () => {
 
     listaProjectos.forEach((e) => {
+        const dataID = e.id;
         const projectoHTML = document.createElement("div");
         projectoHTML.classList.add("projecto");
         caixaProjectosHTML.appendChild(projectoHTML);
-        projectoHTML.setAttribute("data-id", `${e.id}`);
+        projectoHTML.setAttribute("data-id", `${dataID}`);
 
         const botõesProjHTML = document.createElement("div");
         projectoHTML.appendChild(botõesProjHTML);
@@ -48,12 +49,12 @@ const conteúdosProjIniciais = () => {
         const botãoEditarProjHTML = document.createElement("button");
         botõesProjHTML.appendChild(botãoEditarProjHTML);
         botãoEditarProjHTML.classList.add("editar-proj");
-        botãoEditarProjHTML.setAttribute("data-id", `${e.id}`);
+        botãoEditarProjHTML.setAttribute("data-id", `${dataID}`);
         botãoEditarProjHTML.textContent = "Editar Projecto";
         const botãoApagarProjHML = document.createElement("button");
         botõesProjHTML.appendChild(botãoApagarProjHML);
         botãoApagarProjHML.classList.add("apagar-proj");
-        botãoApagarProjHML.setAttribute("data-id", `${e.id}`);
+        botãoApagarProjHML.setAttribute("data-id", `${dataID}`);
         botãoApagarProjHML.textContent = "Apagar Projecto";
         const criarToDo = document.createElement("div");
         criarToDo.classList.add("criar-todo");
@@ -62,8 +63,7 @@ const conteúdosProjIniciais = () => {
         botãoCriarToDo.classList.add("botão-criar-todo");
         criarToDo.appendChild(botãoCriarToDo);
         botãoCriarToDo.textContent = "Criar novo ToDo";
-        botãoCriarToDo.setAttribute("data-id", `${e.id}`);
-
+        botãoCriarToDo.setAttribute("data-id", `${dataID}`);
 
         //Título projecto
         const infoProjHTML = document.createElement("div");
@@ -72,29 +72,88 @@ const conteúdosProjIniciais = () => {
         const títuloProjHTML = document.createElement("div");
         títuloProjHTML.classList.add("titulo-projecto");
         infoProjHTML.appendChild(títuloProjHTML);
-        títuloProjHTML.setAttribute("data-id", `${e.id}`);
+        títuloProjHTML.setAttribute("data-id", `${dataID}`);
         títuloProjHTML.textContent = e.título;
-
 
         //utilizadores projecto
         const utilizadoresProjHTML = document.createElement("div");
         utilizadoresProjHTML.classList.add("utilizadores");
         infoProjHTML.appendChild(utilizadoresProjHTML);
-        utilizadoresProjHTML.setAttribute("data-id", `${e.id}`);
+        utilizadoresProjHTML.setAttribute("data-id", `${dataID}`);
         utilizadoresProjHTML.textContent = `${e.utilizador}`;
 
         //toDos projecto
-        const caixaToDosHTML = document.createElement("div");
-        caixaToDosHTML.classList.add("cartoes-todo");
-        projectoHTML.appendChild(caixaToDosHTML);
-        //loop para os todos (se existirem)
-        
+        if (e.todos.length > 0) {
+            const caixaToDosHTML = document.createElement("div");
+            caixaToDosHTML.classList.add("cartoes-todo");
+            caixaToDosHTML.setAttribute("data-id", `${dataID}`);
+            projectoHTML.appendChild(caixaToDosHTML);
+            e.todos.forEach((e) => {
+                const objToDo = e[0];
+                const toDoHTML = document.createElement("div");
+                toDoHTML.classList.add("todo");
+                toDoHTML.setAttribute("data-id", `${e.id}`);
+                caixaToDosHTML.appendChild(toDoHTML);
 
+                ///título ToDo
+                const títuloToDoHTML = document.createElement("div");
+                títuloToDoHTML.classList.add("titulo-todo");
+                toDoHTML.appendChild(títuloToDoHTML);
+                console.log(e.título);
+                títuloToDoHTML.textContent = objToDo.título;
+                ///data término
+                const dataTérminoHTML = document.createElement("div");
+                dataTérminoHTML.classList.add("data-todo");
+                toDoHTML.appendChild(dataTérminoHTML);
+                dataTérminoHTML.textContent = objToDo.dataTérmino;
+                ///descrição ToDo
+                const descriçãoHTML = document.createElement("div");
+                descriçãoHTML.classList.add("descrição-todo");
+                toDoHTML.appendChild(descriçãoHTML);
+                descriçãoHTML.textContent = objToDo.descrição;
+                ///prioridade ToDo
+                const prioridadeHTML = document.createElement("div");
+                prioridadeHTML.classList.add("prioridade");
+                toDoHTML.appendChild(prioridadeHTML);
+                prioridadeHTML.textContent = objToDo.prioridade;
+                ///estado ToDo
+                const estadoToDoHTML = document.createElement("div");
+                estadoToDoHTML.classList.add("estado");
+                toDoHTML.appendChild(estadoToDoHTML);
+                estadoToDoHTML.textContent = objToDo.estado;
+                ///tarefas ToDo
+                const tarefasToDoHTML = document.createElement("div");
+                tarefasToDoHTML.classList.add("tarefas");
+                toDoHTML.appendChild(tarefasToDoHTML);
+                tarefasToDoHTML.textContent = objToDo.tarefas;
 
+                ///atrbuir os id nos campos
+                títuloToDoHTML.setAttribute("data-id", `${e.id}`);
+                dataTérminoHTML.setAttribute("data-id", `${e.id}`);
+                descriçãoHTML.setAttribute("data-id", `${e.id}`);
+                prioridadeHTML.setAttribute("data-id", `${e.id}`);
+                estadoToDoHTML.setAttribute("data-id", `${e.id}`);
+                tarefasToDoHTML.setAttribute("data-id", `${e.id}`);
+
+                //criar os botões
+                const botõesToDoHTML = document.createElement("div");
+                botõesToDoHTML.classList.add("botoes-todos");
+                toDoHTML.appendChild(botõesToDoHTML);
+                const botãoEditarToDoHTML = document.createElement("button");
+                botãoEditarToDoHTML.classList.add("botão-editar-todo");
+                botãoEditarToDoHTML.setAttribute("data-id", `${e.id}`);
+                botãoEditarToDoHTML.textContent = "Editar";
+                botõesToDoHTML.appendChild(botãoEditarToDoHTML);
+                const botãoApagarToDoHTML = document.createElement("button");
+                botãoApagarToDoHTML.classList.add("botão-apagar-toodo");
+                botãoApagarToDoHTML.setAttribute("data-id", `${e.id}`);
+                botãoApagarToDoHTML.textContent = "Apagar";
+                botõesToDoHTML.appendChild(botãoApagarToDoHTML);
+
+            })
+        }
     })
-
-
-}
+};
 
 //criar o conteúdo inicial por defeito, se não houver um projecto criado
 if (listaProjectos.length === 0) {
@@ -196,7 +255,6 @@ caixaProjectosHTML.addEventListener("click", (e) => {
         formulárioEditarProjHTML.setAttribute("data-id", `${dataId}`);
         formulárioEditarProjHTML.showModal();
     }
-
 });
 
 ////editar o título e utilizador
@@ -229,108 +287,12 @@ botãoFecharEdiçãoProjHTML.addEventListener("click", () => {
 
 
 //ToDos
-///html inicial elementos ToDo
-const caixaToDosHTML = document.querySelector(".cartoes-todos");
-/* const toDoHTML = document.querySelector(".todo"); */
-
-/* const adicionarBotõesToDoInicial = () => {
-    const toDoInicialHTML = document.querySelector("todo");
-    const botõesToDoHTML = document.createElement("div");
-    botõesToDoHTML.classList.add("botoes-todos");
-    toDoInicialHTML.appendChild(botõesToDoHTML);
-    const botãoEditarToDoHTML = document.createElement("button");
-    botãoEditarToDoHTML.setAttribute("id", "botão-editar-todo");
-    botãoEditarToDoHTML.textContent = "Editar";
-    botõesToDoHTML.appendChild(botãoEditarToDoHTML);
-    const botãoApagarToDoHTML = document.createElement("button");
-    botãoApagarToDoHTML.setAttribute("id", "botão-apagar-toodo");
-    botãoApagarToDoHTML.textContent = "Apagar";
-    botõesToDoHTML.appendChild(botãoApagarToDoHTML);
-} */
-
-//Conteúdos iniciais (se houverem)
-
-const conteúdosToDoiniciais = () => {
-
-    listaToDos.forEach((e) => {
-
-        const toDoInicialHTML = document.createElement("div");
-        toDoInicialHTML.classList.add("todo");
-        toDoInicialHTML.setAttribute("data-id", `${e.id}`);
-        caixaToDosHTML.appendChild(toDoInicialHTML);
-        ///título ToDo
-        const títuloToDoHTML = document.createElement("div");
-        títuloToDoHTML.classList.add("titulo-todo");
-        toDoInicialHTML.appendChild(títuloToDoHTML);
-        títuloToDoHTML.textContent = `${e.título}`;
-        ///data término
-        const dataTérminoHTML = document.createElement("div");
-        dataTérminoHTML.classList.add("data-todo");
-        toDoInicialHTML.appendChild(dataTérminoHTML);
-        dataTérminoHTML.textContent = `${e.dataTérmino}`;
-        ///descrição ToDo
-        const descriçãoHTML = document.createElement("div");
-        descriçãoHTML.classList.add("descrição-todo");
-        toDoInicialHTML.appendChild(descriçãoHTML);
-        descriçãoHTML.textContent = `${e.descrição}`;
-        ///prioridade ToDo
-        const prioridadeHTML = document.createElement("div");
-        prioridadeHTML.classList.add("prioridade");
-        toDoInicialHTML.appendChild(prioridadeHTML);
-        prioridadeHTML.textContent = `${e.prioridade}`;
-        ///estado ToDo
-        const estadoToDoHTML = document.createElement("div");
-        estadoToDoHTML.classList.add("estado");
-        toDoInicialHTML.appendChild(estadoToDoHTML);
-        estadoToDoHTML.textContent = `${e.estado}`;
-        ///tarefas ToDo
-        const tarefasToDoHTML = document.createElement("div");
-        tarefasToDoHTML.classList.add("tarefas");
-        toDoInicialHTML.appendChild(tarefasToDoHTML);
-        tarefasToDoHTML.textContent = `${e.tarefas}`;
-
-        ///atrbuir os id nos campos
-        títuloToDoHTML.setAttribute("data-id", `${e.id}`);
-        dataTérminoHTML.setAttribute("data-id", `${e.id}`);
-        descriçãoHTML.setAttribute("data-id", `${e.id}`);
-        prioridadeHTML.setAttribute("data-id", `${e.id}`);
-        estadoToDoHTML.setAttribute("data-id", `${e.id}`);
-        tarefasToDoHTML.setAttribute("data-id", `${e.id}`);
-
-        //criar os botões
-        const botõesToDoHTML = document.createElement("div");
-        botõesToDoHTML.classList.add("botoes-todos");
-        toDoInicialHTML.appendChild(botõesToDoHTML);
-        const botãoEditarToDoHTML = document.createElement("button");
-        botãoEditarToDoHTML.classList.add("botão-editar-todo");
-        botãoEditarToDoHTML.setAttribute("data-id", `${e.id}`);
-        botãoEditarToDoHTML.textContent = "Editar";
-        botõesToDoHTML.appendChild(botãoEditarToDoHTML);
-        const botãoApagarToDoHTML = document.createElement("button");
-        botãoApagarToDoHTML.classList.add("botão-apagar-toodo");
-        botãoApagarToDoHTML.setAttribute("data-id", `${e.id}`);
-        botãoApagarToDoHTML.textContent = "Apagar";
-        botõesToDoHTML.appendChild(botãoApagarToDoHTML);
-
-
-    });
-
-
-};
-
-if (listaToDos.length !== 0) {
-    conteúdosToDoiniciais();
-};
-
-
 ///Modal
 ////HTML modal criar ToDo + botão
 const formulárioCriarToDoHTML = document.querySelector("#modal-criar-todo");
-const botãoCriarToDoHTML = document.querySelector(".botão-criar-todo");
 
 ////HTML para editar ToDo
 const formulárioEditarToDoHTML = document.querySelector("#modal-editar-todo");
-
 
 ////HTML botões guardar e fechar ToDo no modal Criar
 const botãoGuardarNovoToDoHTML = document.querySelector(".botao-guardar-todo");
@@ -339,17 +301,6 @@ const botãofecharFormNovoToDoHTML = document.querySelector(".botao-fechar-todo"
 ////HTML botões guardar e fechar ToDo no modal Editar
 const botãoGuardarEditarToDoHTML = document.querySelector(".botao-guardar-editar-todo");
 const botãoFecharEditarToDoHTML = document.querySelector(".botao-fechar-editar-todo");
-
-//fx para abrir modal criar ToDo
-/* botãoCriarToDoHTML.addEventListener("click", () => {
-    ////limpar os campos
-    inputTítuloToDoHTML.value = "";
-    inputDescriçãoToDoHTML.value = "";
-    inputdataToDoHTML.value = "";
-    inputTarefasToDoHTML.value = "";
-    formulárioCriarToDoHTML.showModal();
-}); */
-
 
 //HTML inputs Novo ToDo
 ///título
@@ -385,131 +336,139 @@ caixaProjectosHTML.addEventListener("click", (e) => {
 //fxs para guardar dados novo ToDo 
 botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 
-    ///buscar ID do projecto
-    const dataId = formulárioCriarToDoHTML.dataset.id;
+        ///buscar ID do projecto
+        const dataId = formulárioCriarToDoHTML.dataset.id;
 
-    //identificar o index do Projecto
-    const indexProj = listaProjectos.findIndex(item => item.id == dataId);
+        //identificar o index do Projecto
+        const indexProj = listaProjectos.findIndex(item => item.id == dataId);
 
-    //identificar o obj do Projecto
-    const projToDo = listaProjectos[indexProj];
+        //identificar o obj do Projecto
+        const projToDo = listaProjectos[indexProj];
+        console.log(projToDo);
+        const idProj = `.projecto[data-id='${dataId}']`;
 
-    const toDoHTML = document.createElement("div");
-    toDoHTML.classList.add("todo");
-    caixaToDosHTML.appendChild(toDoHTML);
+        const projToDoHTML = document.querySelector(idProj);
+        const caixaToDosHTML = document.createElement("div");
+        caixaToDosHTML.classList.add(".cartoes-todos");
+        caixaToDosHTML.setAttribute("data-id", `${dataId}`);
+        projToDoHTML.appendChild(caixaToDosHTML);
+        const toDoHTML = document.createElement("div");
+        toDoHTML.classList.add("todo");
+        caixaToDosHTML.appendChild(toDoHTML);
 
-    ///vars para os dados do ToDo
-    let títuloToDo;
-    let descriçãoToDo;
-    let dataTérminoToDo;
-    let prioridadeToDo;
-    let estadoToDo;
-    let tarefasToDo;
+        ///vars para os dados do ToDo
+        let títuloToDo;
+        let descriçãoToDo;
+        let dataTérminoToDo;
+        let prioridadeToDo;
+        let estadoToDo;
+        let tarefasToDo;
 
-    ////HTML para título ToDo
-    const títuloToDoHTML = document.createElement("div");
-    títuloToDoHTML.classList.add("titulo-todo");
-    toDoHTML.appendChild(títuloToDoHTML);
+        ////HTML para título ToDo
+        const títuloToDoHTML = document.createElement("div");
+        títuloToDoHTML.classList.add("titulo-todo");
+        toDoHTML.appendChild(títuloToDoHTML);
 
-    ////HTML para data término ToDo
-    const dataTérminoHTML = document.createElement("div");
-    dataTérminoHTML.classList.add("data-todo");
-    toDoHTML.appendChild(dataTérminoHTML);
+        ////HTML para data término ToDo
+        const dataTérminoHTML = document.createElement("div");
+        dataTérminoHTML.classList.add("data-todo");
+        toDoHTML.appendChild(dataTérminoHTML);
 
-    ////HTML para descrição ToDo
-    const descriçãoHTML = document.createElement("div");
-    descriçãoHTML.classList.add("descrição-todo");
-    toDoHTML.appendChild(descriçãoHTML);
+        ////HTML para descrição ToDo
+        const descriçãoHTML = document.createElement("div");
+        descriçãoHTML.classList.add("descrição-todo");
+        toDoHTML.appendChild(descriçãoHTML);
 
-    ////HTML para prioridade ToDo
-    const prioridadeHTML = document.createElement("div");
-    prioridadeHTML.classList.add("prioridade");
-    toDoHTML.appendChild(prioridadeHTML);
+        ////HTML para prioridade ToDo
+        const prioridadeHTML = document.createElement("div");
+        prioridadeHTML.classList.add("prioridade");
+        toDoHTML.appendChild(prioridadeHTML);
 
-    ////HTML para estado ToDo
-    const estadoToDoHTML = document.createElement("div");
-    estadoToDoHTML.classList.add("estado");
-    toDoHTML.appendChild(estadoToDoHTML);
+        ////HTML para estado ToDo
+        const estadoToDoHTML = document.createElement("div");
+        estadoToDoHTML.classList.add("estado");
+        toDoHTML.appendChild(estadoToDoHTML);
 
-    ////HTML para tarefas ToDo
-    const tarefasToDoHTML = document.createElement("div");
-    tarefasToDoHTML.classList.add("tarefas");
-    toDoHTML.appendChild(tarefasToDoHTML);
+        ////HTML para tarefas ToDo
+        const tarefasToDoHTML = document.createElement("div");
+        tarefasToDoHTML.classList.add("tarefas");
+        toDoHTML.appendChild(tarefasToDoHTML);
 
-    ////input título ToDo
-    títuloToDo = inputTítuloToDoHTML.value;
+        ////input título ToDo
+        títuloToDo = inputTítuloToDoHTML.value;
 
-    ////input descrição ToDo
-    descriçãoToDo = inputDescriçãoToDoHTML.value;
+        ////input descrição ToDo
+        descriçãoToDo = inputDescriçãoToDoHTML.value;
 
-    ////input data término ToDo
-    dataTérminoToDo = inputDataToDoHTML.value;
+        ////input data término ToDo
+        dataTérminoToDo = inputDataToDoHTML.value;
 
-    ////input prioridade ToDo, obter nome e obter o valor do elemento seleccionado com o método checked
-    //vai dar um NodeList => converter para um array
-    let prioridadeArray = Array.from(inputPrioridadeHTML);
-    prioridadeArray.map((item) => {
-        if (item.checked == true) { prioridadeToDo = item.value }
+        ////input prioridade ToDo, obter nome e obter o valor do elemento seleccionado com o método checked
+        //vai dar um NodeList => converter para um array
+        let prioridadeArray = Array.from(inputPrioridadeHTML);
+        prioridadeArray.map((item) => {
+            if (item.checked == true) { prioridadeToDo = item.value }
 
-    });
-    ////input estado ToDo, mesma lógica que a prioridade
-    let estadoToDoArray = Array.from(inputEstadoToDoHTML);
-    estadoToDoArray.map((item) => {
-        if (item.checked == true) { estadoToDo = item.value }
+        });
+        ////input estado ToDo, mesma lógica que a prioridade
+        let estadoToDoArray = Array.from(inputEstadoToDoHTML);
+        estadoToDoArray.map((item) => {
+            if (item.checked == true) { estadoToDo = item.value }
 
-    });
-    ////input tarefas ToDo
-    let tarefasTexto = inputTarefasToDoHTML.value;
-    tarefasToDo = tarefasTexto.split(", ");
+        });
+        ////input tarefas ToDo
+        let tarefasTexto = inputTarefasToDoHTML.value;
+        tarefasToDo = tarefasTexto.split(", ");
 
-    ///criar o obj ToDo com os inputs
-    listaToDos.push(new ToDo(títuloToDo, descriçãoToDo, dataTérminoToDo, prioridadeToDo, estadoToDo, tarefasToDo));
+        ///criar o obj ToDo com os inputs
+        listaToDos.push(new ToDo(títuloToDo, descriçãoToDo, dataTérminoToDo, prioridadeToDo, estadoToDo, tarefasToDo));
 
-    ////criar o html da caixa do toDo com as propriedades do obj
-    ////usar uma var nova com o obj apenas para o novo ToDo
-    let novoObjToDo = listaToDos.slice(-1);
+        ////criar o html da caixa do toDo com as propriedades do obj
+        ////usar uma var nova com o obj apenas para o novo ToDo
+        let novoObjToDo = listaToDos.slice(-1);
 
-    ////adicionar o toDo ao projecto
-    projToDo[0].adicionarToDos(novoObjToDo);
-    console.log(listaProjectos);
+        ////adicionar o toDo ao projecto
+        projToDo.todos.push(novoObjToDo);
+        console.log(listaProjectos);
 
-    //atribuir o id do ToDo
-    toDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    //preencher os dados
-    títuloToDoHTML.textContent = novoObjToDo[0].título;
-    títuloToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    dataTérminoHTML.textContent = novoObjToDo[0].dataTérmino;
-    dataTérminoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    descriçãoHTML.textContent = novoObjToDo[0].descrição;
-    descriçãoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    prioridadeHTML.textContent = novoObjToDo[0].prioridade;
-    prioridadeHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    estadoToDoHTML.textContent = novoObjToDo[0].estado;
-    estadoToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    tarefasToDoHTML.textContent = novoObjToDo[0].tarefas;
-    tarefasToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        //atribuir o id do ToDo
+        toDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        //preencher os dados
+        títuloToDoHTML.textContent = novoObjToDo[0].título;
+        títuloToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        dataTérminoHTML.textContent = novoObjToDo[0].dataTérmino;
+        dataTérminoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        descriçãoHTML.textContent = novoObjToDo[0].descrição;
+        descriçãoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        prioridadeHTML.textContent = novoObjToDo[0].prioridade;
+        prioridadeHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        estadoToDoHTML.textContent = novoObjToDo[0].estado;
+        estadoToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        tarefasToDoHTML.textContent = novoObjToDo[0].tarefas;
+        tarefasToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
 
-    ////adicionar botões
-    const botõesToDoHTML = document.createElement("div");
-    botõesToDoHTML.classList.add("botoes-todos");
-    toDoHTML.appendChild(botõesToDoHTML);
-    const botãoEditarToDoHTML = document.createElement("button");
-    botãoEditarToDoHTML.classList.add("botão-editar-todo");
-    botãoEditarToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    botãoEditarToDoHTML.textContent = "Editar";
-    botõesToDoHTML.appendChild(botãoEditarToDoHTML);
-    const botãoApagarToDoHTML = document.createElement("button");
-    botãoApagarToDoHTML.classList.add("botão-apagar-todo");
-    botãoApagarToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    botãoApagarToDoHTML.textContent = "Apagar";
-    botõesToDoHTML.appendChild(botãoApagarToDoHTML);
+        ////adicionar botões
+        const botõesToDoHTML = document.createElement("div");
+        botõesToDoHTML.classList.add("botoes-todos");
+        projToDoHTML.appendChild(botõesToDoHTML);
+        const botãoEditarToDoHTML = document.createElement("button");
+        botãoEditarToDoHTML.classList.add("botão-editar-todo");
+        botãoEditarToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        botãoEditarToDoHTML.textContent = "Editar";
+        botõesToDoHTML.appendChild(botãoEditarToDoHTML);
+        const botãoApagarToDoHTML = document.createElement("button");
+        botãoApagarToDoHTML.classList.add("botão-apagar-todo");
+        botãoApagarToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+        botãoApagarToDoHTML.textContent = "Apagar";
+        botõesToDoHTML.appendChild(botãoApagarToDoHTML);
 
-    ////guardar os objectos
-    localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
+        ////guardar os objectos
+        localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
+        localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
 
-    ////fechar o modal quando clica guardar
-    formulárioCriarToDoHTML.close();
-})
+        ////fechar o modal quando clica guardar
+        formulárioCriarToDoHTML.close();
+    })
 
 
 //fx para fechar form criar ToDo
@@ -623,9 +582,8 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
 
 botãoFecharEditarToDoHTML.addEventListener("click", () => formulárioEditarToDoHTML.close());
 
-
 ///fx para editar ToDo (usar o event delegation porque o html do botão só é criado posteriormente)
-caixaToDosHTML.addEventListener("click", (e) => {
+caixaProjectosHTML.addEventListener("click", (e) => {
     if (e.target.className == "botão-editar-todo") {
         inputTítuloToDoHTML.value = "";
         inputDescriçãoToDoHTML.value = "";
