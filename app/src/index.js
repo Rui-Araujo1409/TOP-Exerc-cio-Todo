@@ -92,7 +92,7 @@ const conteúdosProjIniciais = () => {
                 const objToDo = e[0];
                 const toDoHTML = document.createElement("div");
                 toDoHTML.classList.add("todo");
-                toDoHTML.setAttribute("data-id", `${e.id}`);
+                toDoHTML.setAttribute("data-id", `${objToDo.id}`);
                 caixaToDosHTML.appendChild(toDoHTML);
 
                 ///título ToDo
@@ -128,12 +128,12 @@ const conteúdosProjIniciais = () => {
                 tarefasToDoHTML.textContent = objToDo.tarefas;
 
                 ///atrbuir os id nos campos
-                títuloToDoHTML.setAttribute("data-id", `${e.id}`);
-                dataTérminoHTML.setAttribute("data-id", `${e.id}`);
-                descriçãoHTML.setAttribute("data-id", `${e.id}`);
-                prioridadeHTML.setAttribute("data-id", `${e.id}`);
-                estadoToDoHTML.setAttribute("data-id", `${e.id}`);
-                tarefasToDoHTML.setAttribute("data-id", `${e.id}`);
+                títuloToDoHTML.setAttribute("data-id", `${objToDo.id}`);
+                dataTérminoHTML.setAttribute("data-id", `${objToDo.id}`);
+                descriçãoHTML.setAttribute("data-id", `${objToDo.id}`);
+                prioridadeHTML.setAttribute("data-id", `${objToDo.id}`);
+                estadoToDoHTML.setAttribute("data-id", `${objToDo.id}`);
+                tarefasToDoHTML.setAttribute("data-id", `${objToDo.id}`);
 
                 //criar os botões
                 const botõesToDoHTML = document.createElement("div");
@@ -141,12 +141,12 @@ const conteúdosProjIniciais = () => {
                 toDoHTML.appendChild(botõesToDoHTML);
                 const botãoEditarToDoHTML = document.createElement("button");
                 botãoEditarToDoHTML.classList.add("botão-editar-todo");
-                botãoEditarToDoHTML.setAttribute("data-id", `${e.id}`);
+                botãoEditarToDoHTML.setAttribute("data-id", `${objToDo.id}`);
                 botãoEditarToDoHTML.textContent = "Editar";
                 botõesToDoHTML.appendChild(botãoEditarToDoHTML);
                 const botãoApagarToDoHTML = document.createElement("button");
                 botãoApagarToDoHTML.classList.add("botão-apagar-toodo");
-                botãoApagarToDoHTML.setAttribute("data-id", `${e.id}`);
+                botãoApagarToDoHTML.setAttribute("data-id", `${objToDo.id}`);
                 botãoApagarToDoHTML.textContent = "Apagar";
                 botõesToDoHTML.appendChild(botãoApagarToDoHTML);
 
