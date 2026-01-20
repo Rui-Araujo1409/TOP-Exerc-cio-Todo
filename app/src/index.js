@@ -55,6 +55,15 @@ const conteúdosProjIniciais = () => {
         botãoApagarProjHML.classList.add("apagar-proj");
         botãoApagarProjHML.setAttribute("data-id", `${e.id}`);
         botãoApagarProjHML.textContent = "Apagar Projecto";
+        const criarToDo = document.createElement("div");
+        criarToDo.classList.add("criar-todo");
+        projectoHTML.appendChild(criarToDo);
+        const botãoCriarToDo = document.createElement("button");
+        botãoCriarToDo.classList.add("botão-criar-todo");
+        criarToDo.appendChild(botãoCriarToDo);
+        botãoCriarToDo.textContent = "Criar novo ToDo";
+        botãoCriarToDo.setAttribute("data-id", `${e.id}`);
+
 
         //Título projecto
         const infoProjHTML = document.createElement("div");
@@ -73,6 +82,15 @@ const conteúdosProjIniciais = () => {
         infoProjHTML.appendChild(utilizadoresProjHTML);
         utilizadoresProjHTML.setAttribute("data-id", `${e.id}`);
         utilizadoresProjHTML.textContent = `${e.utilizador}`;
+
+        //toDos projecto
+        const caixaToDosHTML = document.createElement("div");
+        caixaToDosHTML.classList.add("cartoes-todo");
+        projectoHTML.appendChild(caixaToDosHTML);
+        //loop para os todos (se existirem)
+        
+
+
     })
 
 
@@ -353,17 +371,29 @@ const inputEstadoToDoHTML = document.getElementsByName("estado-novo");
 const inputTarefasToDoHTML = document.querySelector("#input-tarefas-todo-novo");
 
 //abrir form Novo ToDo
-botãoCriarToDoHTML.addEventListener("click", () => {
-    ////limpar os campos
-    inputTítuloToDoHTML.value = "";
-    inputDescriçãoToDoHTML.value = "";
-    inputDataToDoHTML.value = "";
-    inputTarefasToDoHTML.value = "";
-    formulárioCriarToDoHTML.showModal();
+caixaProjectosHTML.addEventListener("click", (e) => {
+    if (e.target.className == "botão-criar-todo") {
+        inputTítuloToDoHTML.value = "";
+        inputDescriçãoToDoHTML.value = "";
+        inputDataToDoHTML.value = "";
+        inputTarefasToDoHTML.value = "";
+        formulárioCriarToDoHTML.setAttribute("data-id", `${e.target.dataset.id}`);
+        formulárioCriarToDoHTML.showModal();
+    }
 });
 
 //fxs para guardar dados novo ToDo 
 botãoGuardarNovoToDoHTML.addEventListener("click", () => {
+
+    ///buscar ID do projecto
+    const dataId = formulárioCriarToDoHTML.dataset.id;
+
+    //identificar o index do Projecto
+    const indexProj = listaProjectos.findIndex(item => item.id == dataId);
+
+    //identificar o obj do Projecto
+    const projToDo = listaProjectos[indexProj];
+
     const toDoHTML = document.createElement("div");
     toDoHTML.classList.add("todo");
     caixaToDosHTML.appendChild(toDoHTML);
@@ -438,6 +468,10 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
     ////criar o html da caixa do toDo com as propriedades do obj
     ////usar uma var nova com o obj apenas para o novo ToDo
     let novoObjToDo = listaToDos.slice(-1);
+
+    ////adicionar o toDo ao projecto
+    projToDo[0].adicionarToDos(novoObjToDo);
+    console.log(listaProjectos);
 
     //atribuir o id do ToDo
     toDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
