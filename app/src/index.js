@@ -10,25 +10,11 @@ let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
 let listaToDos = JSON.parse(localStorage.getItem("listaToDos"));
 let utilizador;
 
-
-
-
-//criar o conteúdo inicial por defeito, se não houver um projecto criado
-if (listaProjectos.length === 0) {
-    listaProjectos.push(new Projecto("Novo Projecto"));
-    utilizador = "Novo utilizador";
-    listaProjectos[0].adicionarUtilizadorProjecto(utilizador);
-    listaProjectos[0].id = Math.floor(Math.random() * 100 + 1);
-};
-
-
 //elementos html
 ///Projecto
 //Elemento Projecto e filhos
 const caixaProjectosHTML = document.querySelector("#caixa-projectos");
-const projectoHTML = document.querySelector(".projecto");
-caixaProjectosHTML.appendChild(projectoHTML);
-projectoHTML.setAttribute("data-id", `${listaProjectos[0].id}`);
+
 
 
 //html formulário criar projecto + botões
@@ -46,31 +32,61 @@ const inputEditarUtilizadoresProjHTML = document.querySelector("#editar-user-pro
 const inputTítuloNovoProj = document.querySelector("#input-titulo-proj");
 const inputUtilizadoresNovoProj = document.querySelector("#input-utilizadores-proj");
 
-let botõesProjHTML = document.createElement("div");
-projectoHTML.appendChild(botõesProjHTML);
-botõesProjHTML.classList.add("botoes-projecto");
-let botãoEditarProjHTML = document.createElement("button");
-botõesProjHTML.appendChild(botãoEditarProjHTML);
-botãoEditarProjHTML.classList.add("editar-proj");
-botãoEditarProjHTML.setAttribute("data-id", `${listaProjectos[0].id}`);
-botãoEditarProjHTML.textContent = "Editar Projecto";
-let botãoApagarProjHML = document.createElement("button");
-botõesProjHTML.appendChild(botãoApagarProjHML);
-botãoApagarProjHML.classList.add("apagar-proj");
-botãoApagarProjHML.setAttribute("data-id", `${listaProjectos[0].id}`);
-botãoApagarProjHML.textContent = "Apagar Projecto";
+//fx para conteúdos Projecto Iniciais
 
-//Título projecto
-const títuloProjHTML = document.querySelector(".titulo-projecto");
-títuloProjHTML.setAttribute("data-id", `${listaProjectos[0].id}`);
-títuloProjHTML.textContent = listaProjectos[0].título;
+const conteúdosProjIniciais = () => {
+
+    listaProjectos.forEach((e) => {
+        const projectoHTML = document.createElement("div");
+        projectoHTML.classList.add("projecto");
+        caixaProjectosHTML.appendChild(projectoHTML);
+        projectoHTML.setAttribute("data-id", `${e.id}`);
+
+        const botõesProjHTML = document.createElement("div");
+        projectoHTML.appendChild(botõesProjHTML);
+        botõesProjHTML.classList.add("botoes-projecto");
+        const botãoEditarProjHTML = document.createElement("button");
+        botõesProjHTML.appendChild(botãoEditarProjHTML);
+        botãoEditarProjHTML.classList.add("editar-proj");
+        botãoEditarProjHTML.setAttribute("data-id", `${e.id}`);
+        botãoEditarProjHTML.textContent = "Editar Projecto";
+        const botãoApagarProjHML = document.createElement("button");
+        botõesProjHTML.appendChild(botãoApagarProjHML);
+        botãoApagarProjHML.classList.add("apagar-proj");
+        botãoApagarProjHML.setAttribute("data-id", `${e.id}`);
+        botãoApagarProjHML.textContent = "Apagar Projecto";
+
+        //Título projecto
+        const infoProjHTML = document.createElement("div");
+        infoProjHTML.classList.add("info-projecto");
+        projectoHTML.appendChild(infoProjHTML);
+        const títuloProjHTML = document.createElement("div");
+        títuloProjHTML.classList.add("titulo-projecto");
+        infoProjHTML.appendChild(títuloProjHTML);
+        títuloProjHTML.setAttribute("data-id", `${e.id}`);
+        títuloProjHTML.textContent = e.título;
 
 
-//utilizadores projecto
-const utilizadoresProjHTML = document.querySelector(".utilizadores");
-utilizadoresProjHTML.setAttribute("data-id", `${listaProjectos[0].id}`);
-utilizadoresProjHTML.textContent = `${listaProjectos[0].utilizador}`;
+        //utilizadores projecto
+        const utilizadoresProjHTML = document.createElement("div");
+        utilizadoresProjHTML.classList.add("utilizadores");
+        infoProjHTML.appendChild(utilizadoresProjHTML);
+        utilizadoresProjHTML.setAttribute("data-id", `${e.id}`);
+        utilizadoresProjHTML.textContent = `${e.utilizador}`;
+    })
 
+
+}
+
+//criar o conteúdo inicial por defeito, se não houver um projecto criado
+if (listaProjectos.length === 0) {
+    listaProjectos.push(new Projecto("Novo Projecto"));
+    utilizador = "Novo utilizador";
+    listaProjectos[0].adicionarUtilizadorProjecto(utilizador);
+    listaProjectos[0].id = Math.floor(Math.random() * 100 + 1);
+} else {
+    conteúdosProjIniciais();
+};
 
 //fx para abrir form de novo projecto
 botãoAbrirFormNovoProjHTML.addEventListener("click", () => {
@@ -91,13 +107,11 @@ botãoGuardarNovoProjHTML.addEventListener("click", () => {
     const títuloProjNovo = inputTítuloNovoProj.value;
     const utilizadoresProjNovo = inputUtilizadoresNovoProj.value;
 
-
-
     listaProjectos.push(new Projecto(títuloProjNovo, utilizadoresProjNovo));
     console.log(listaProjectos);
     const novoProj = listaProjectos.slice(-1);
     novoProj[0].adicionarUtilizadorProjecto(utilizadoresProjNovo);
- 
+
     const projecto = document.createElement("div");
     projecto.setAttribute("data-id", `${novoProj[0].id}`);
     projecto.classList.add("projecto");
@@ -265,7 +279,7 @@ const conteúdosToDoiniciais = () => {
         estadoToDoHTML.setAttribute("data-id", `${e.id}`);
         tarefasToDoHTML.setAttribute("data-id", `${e.id}`);
 
-
+        //criar os botões
         const botõesToDoHTML = document.createElement("div");
         botõesToDoHTML.classList.add("botoes-todos");
         toDoInicialHTML.appendChild(botõesToDoHTML);
