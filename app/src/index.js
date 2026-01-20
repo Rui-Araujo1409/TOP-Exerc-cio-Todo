@@ -9,7 +9,6 @@ import { format, compareAsc } from "date-fns";
 let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
 let listaToDos = JSON.parse(localStorage.getItem("listaToDos"));
 let utilizador;
-console.log(listaToDos);
 
 //elementos html
 ///Projecto
