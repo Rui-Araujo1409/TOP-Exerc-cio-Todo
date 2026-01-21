@@ -262,17 +262,17 @@ botãoGuardarEdiçãoProjHTML.addEventListener("click", () => {
 
     ///buscar o id do projecto através do ID do botão editar
     const dataId = formulárioEditarProjHTML.dataset.id;
-
+    const idTítuloHTML = `.titulo-projecto[data-id='${dataId}']`;
+    const idUtilizadoresHTML = `.utilizadores[data-id='${dataId}']`;
+    
     ////pesquisar no array listaToDos o obj com o ID e obter o index
     const indexObjEditar = listaProjectos.findIndex(item => item.id == dataId);
 
-    const títuloProjHTML = document.querySelector(".titulo-projecto");
+    const títuloProjHTML = document.querySelector(idTítuloHTML);
     listaProjectos[indexObjEditar].título = inputEditarTítuloProjHTML.value;
-    console.log(inputEditarTítuloProjHTML.value);
-    títuloProjHTML.textContent = listaProjectos[0].título;
-    const utilizadoresProjHTML = document.querySelector(".utilizadores");
+    títuloProjHTML.textContent = listaProjectos[indexObjEditar].título;
+    const utilizadoresProjHTML = document.querySelector(idUtilizadoresHTML);
     listaProjectos[indexObjEditar].utilizador = inputEditarUtilizadoresProjHTML.value;
-    console.log(listaProjectos[indexObjEditar].utilizador);
     utilizadoresProjHTML.textContent = listaProjectos[indexObjEditar].utilizador;
 
     localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
