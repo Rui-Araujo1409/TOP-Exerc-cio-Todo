@@ -25,9 +25,9 @@ const botãoGuardarNovoProjHTML = document.querySelector("#botao-guardar-proj-no
 const formulárioEditarProjHTML = document.querySelector("#modal-editar-proj");
 const botãoFecharEdiçãoProjHTML = document.querySelector(".fechar-edição-proj");
 const botãoGuardarEdiçãoProjHTML = document.querySelector(".guardar-edição-proj");
-const inputEditarTítuloProjHTML = document.querySelector("#editar-título-proj");
-const inputEditarUtilizadoresProjHTML = document.querySelector("#editar-user-proj");
-const inputTítuloNovoProj = document.querySelector("#input-titulo-proj");
+const inputEditarTítuloProjHTML = document.querySelector("#input-editar-título-proj");
+const inputEditarUtilizadoresProjHTML = document.querySelector("#input-editar-user-proj");
+const inputTítuloNovoProj = document.querySelector("#editar-titulo-proj");
 const inputUtilizadoresNovoProj = document.querySelector("#input-utilizadores-proj");
 
 
@@ -262,16 +262,17 @@ botãoGuardarEdiçãoProjHTML.addEventListener("click", () => {
 
     ///buscar o id do projecto através do ID do botão editar
     const dataId = formulárioEditarProjHTML.dataset.id;
-    console.log(dataId);
 
     ////pesquisar no array listaToDos o obj com o ID e obter o index
     const indexObjEditar = listaProjectos.findIndex(item => item.id == dataId);
-    console.log(indexObjEditar);
 
+    const títuloProjHTML = document.querySelector(".titulo-projecto");
     listaProjectos[indexObjEditar].título = inputEditarTítuloProjHTML.value;
+    console.log(inputEditarTítuloProjHTML.value);
     títuloProjHTML.textContent = listaProjectos[0].título;
-    utilizador = inputEditarUtilizadoresProjHTML.value;
-    listaProjectos[indexObjEditar].adicionarUtilizadorProjecto(utilizador);
+    const utilizadoresProjHTML = document.querySelector(".utilizadores");
+    listaProjectos[indexObjEditar].utilizador = inputEditarUtilizadoresProjHTML.value;
+    console.log(listaProjectos[indexObjEditar].utilizador);
     utilizadoresProjHTML.textContent = listaProjectos[indexObjEditar].utilizador;
 
     localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
