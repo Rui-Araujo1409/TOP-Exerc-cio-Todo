@@ -344,7 +344,6 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 
     //identificar o obj do Projecto
     const projToDo = listaProjectos[indexProj];
-    console.log(projToDo);
     const idProj = `.projecto[data-id='${dataId}']`;
 
     const projToDoHTML = document.querySelector(idProj);
@@ -600,21 +599,26 @@ caixaProjectosHTML.addEventListener("click", (e) => {
 ////fx para apagar ToDo
 caixaProjectosHTML.addEventListener("click", (e) => {
     if (e.target.className == "botão-apagar-toodo") {
-        console.log(e.target.dataset.id);
+        //console.log(e.target.dataset.id);
         const id = e.target.dataset.id;
-        console.log(listaToDos);
+        //console.log(listaToDos);
         const indexToDoApagar = listaToDos.findIndex((e) => e.id == id);
+
+        listaProjectos.forEach((e) => {
+           e.todos.forEach((e) => e.id == id);
+        });
+       
         console.log(listaToDos[indexToDoApagar]);
         listaToDos.splice(indexToDoApagar, 1);
-        console.log(listaProjectos);
         console.log(listaToDos);
+        console.log(listaProjectos);
         const textoSelectorApagar = `.todo[data-id='${id}']`;
         const todoApagarHTML = document.querySelector(textoSelectorApagar);
         todoApagarHTML.remove();
 
         ////guardar os objectos
-        localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
-        localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
+        /* localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
+        localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos)); */
     }
 
 });

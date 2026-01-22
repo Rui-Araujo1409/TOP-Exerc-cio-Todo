@@ -13,7 +13,7 @@ export default class Projecto {
     adicionarUtilizadorProjecto(utilizador) {this.utilizadores = utilizador;}
   
   retirarUtilizadorProjecto(utilizador) {
-    let index = this.utilizador.findIndex(elemento => elemento == utilizador);
+    let index = this.utilizadores.findIndex(elemento => elemento == utilizador);
   this.utilizadores.splice(index,1);
   }
   
