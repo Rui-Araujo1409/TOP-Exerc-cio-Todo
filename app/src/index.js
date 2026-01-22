@@ -602,15 +602,21 @@ caixaProjectosHTML.addEventListener("click", (e) => {
         const id = e.target.dataset.id;
         //console.log(listaToDos);
         const indexToDoApagar = listaToDos.findIndex((e) => e.id == id);
-        console.log(listaProjectos[3].todos.length);
-        const indexProj = listaProjectos.findIndex((e) => {
-            e.findIndex((e) => e.todos.length == 1);
-        });
-
-        console.log(indexProj)
-
         //console.log(listaToDos[indexToDoApagar]);
         listaToDos.splice(indexToDoApagar, 1);
+
+        let teste;
+        let teste1;
+        teste1 = listaProjectos.findIndex((e) => {
+            e.todos.forEach((e) => {
+              teste =  e.findIndex((e) => e.id == id);
+            });
+        });
+
+        console.log(teste)
+        console.log(teste1);
+
+
         //console.log(listaToDos);
         //console.log(listaProjectos);
         const textoSelectorApagar = `.todo[data-id='${id}']`;
