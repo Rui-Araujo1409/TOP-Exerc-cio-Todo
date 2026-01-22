@@ -98,7 +98,6 @@ const conteúdosProjIniciais = () => {
                 const títuloToDoHTML = document.createElement("div");
                 títuloToDoHTML.classList.add("titulo-todo");
                 toDoHTML.appendChild(títuloToDoHTML);
-                console.log(e.título);
                 títuloToDoHTML.textContent = objToDo.título;
                 ///data término
                 const dataTérminoHTML = document.createElement("div");
@@ -603,15 +602,17 @@ caixaProjectosHTML.addEventListener("click", (e) => {
         const id = e.target.dataset.id;
         //console.log(listaToDos);
         const indexToDoApagar = listaToDos.findIndex((e) => e.id == id);
-
-        listaProjectos.forEach((e) => {
-           e.todos.forEach((e) => e.id == id);
+        console.log(listaProjectos[3].todos.length);
+        const indexProj = listaProjectos.findIndex((e) => {
+            e.findIndex((e) => e.todos.length == 1);
         });
-       
-        console.log(listaToDos[indexToDoApagar]);
+
+        console.log(indexProj)
+
+        //console.log(listaToDos[indexToDoApagar]);
         listaToDos.splice(indexToDoApagar, 1);
-        console.log(listaToDos);
-        console.log(listaProjectos);
+        //console.log(listaToDos);
+        //console.log(listaProjectos);
         const textoSelectorApagar = `.todo[data-id='${id}']`;
         const todoApagarHTML = document.querySelector(textoSelectorApagar);
         todoApagarHTML.remove();
