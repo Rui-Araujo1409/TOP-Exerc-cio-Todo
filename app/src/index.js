@@ -10,6 +10,8 @@ let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
 let listaToDos = JSON.parse(localStorage.getItem("listaToDos"));
 let utilizador;
 
+
+
 //elementos html
 ///Projecto
 //Elemento Projecto e filhos
@@ -27,13 +29,65 @@ const botãoFecharEdiçãoProjHTML = document.querySelector(".fechar-edição-pr
 const botãoGuardarEdiçãoProjHTML = document.querySelector(".guardar-edição-proj");
 const inputEditarTítuloProjHTML = document.querySelector("#input-editar-título-proj");
 const inputEditarUtilizadoresProjHTML = document.querySelector("#input-editar-user-proj");
-const inputTítuloNovoProj = document.querySelector("#editar-titulo-proj");
+const inputTítuloNovoProj = document.querySelector("#input-titulo-proj");
 const inputUtilizadoresNovoProj = document.querySelector("#input-utilizadores-proj");
 
+//fx para conteúdos 
+const conteúdosProjInicial = () => {
+    listaProjectos.push(new Projecto("Novo Projecto"));
+    utilizador = "Novo utilizador";
+    listaProjectos[0].adicionarUtilizadorProjecto(utilizador);
+    listaProjectos[0].id = Math.floor(Math.random() * 100 + 1);
+    const dataID = listaProjectos[0].id;
+    const projectoInicial = document.createElement("div");
+    projectoInicial.classList.add("projecto");
+    projectoInicial.setAttribute("data-id", `${dataID}`);
+    caixaProjectosHTML.appendChild(projectoInicial);
 
-//fx para conteúdos Projecto Iniciais
+    const botõesProjHTML = document.createElement("div");
+        projectoInicial.appendChild(botõesProjHTML);
+        botõesProjHTML.classList.add("botoes-projecto");
+        const botãoEditarProjHTML = document.createElement("button");
+        botõesProjHTML.appendChild(botãoEditarProjHTML);
+        botãoEditarProjHTML.classList.add("editar-proj");
+        botãoEditarProjHTML.setAttribute("data-id", `${dataID}`);
+        botãoEditarProjHTML.textContent = "Editar Projecto";
+        const botãoApagarProjHML = document.createElement("button");
+        botõesProjHTML.appendChild(botãoApagarProjHML);
+        botãoApagarProjHML.classList.add("apagar-proj");
+        botãoApagarProjHML.setAttribute("data-id", `${dataID}`);
+        botãoApagarProjHML.textContent = "Apagar Projecto";
+        const criarToDo = document.createElement("div");
+        criarToDo.classList.add("criar-todo");
+        projectoInicial.appendChild(criarToDo);
+        const botãoCriarToDo = document.createElement("button");
+        botãoCriarToDo.classList.add("botão-criar-todo");
+        criarToDo.appendChild(botãoCriarToDo);
+        botãoCriarToDo.textContent = "Criar novo ToDo";
+        botãoCriarToDo.setAttribute("data-id", `${dataID}`);
 
-const conteúdosProjIniciais = () => {
+    //Título projecto
+        const infoProjHTML = document.createElement("div");
+        infoProjHTML.classList.add("info-projecto");
+        infoProjHTML.setAttribute("data-id", `${dataID}`);
+        projectoInicial.appendChild(infoProjHTML);
+        const títuloProjHTML = document.createElement("div");
+        títuloProjHTML.classList.add("titulo-projecto");
+        infoProjHTML.appendChild(títuloProjHTML);
+        títuloProjHTML.setAttribute("data-id", `${dataID}`);
+        títuloProjHTML.textContent = listaProjectos[0].título;
+
+        //utilizadores projecto
+        const utilizadoresProjHTML = document.createElement("div");
+        utilizadoresProjHTML.classList.add("utilizadores");
+        infoProjHTML.appendChild(utilizadoresProjHTML);
+        utilizadoresProjHTML.setAttribute("data-id", `${dataID}`);
+        utilizadoresProjHTML.textContent = listaProjectos[0].utilizadores;
+}
+
+//fx para carregar conteúdos Projectos
+
+const conteúdosProjExistentes = () => {
 
     listaProjectos.forEach((e) => {
         const dataID = e.id;
@@ -88,7 +142,7 @@ const conteúdosProjIniciais = () => {
             caixaToDosHTML.setAttribute("data-id", `${dataID}`);
             projectoHTML.appendChild(caixaToDosHTML);
             e.todos.forEach((e) => {
-                const objToDo = e[0];
+                const objToDo = e;
                 const toDoHTML = document.createElement("div");
                 toDoHTML.classList.add("todo");
                 toDoHTML.setAttribute("data-id", `${objToDo.id}`);
@@ -155,12 +209,10 @@ const conteúdosProjIniciais = () => {
 
 //criar o conteúdo inicial por defeito, se não houver um projecto criado
 if (listaProjectos.length === 0) {
-    listaProjectos.push(new Projecto("Novo Projecto"));
-    utilizador = "Novo utilizador";
-    listaProjectos[0].adicionarUtilizadorProjecto(utilizador);
-    listaProjectos[0].id = Math.floor(Math.random() * 100 + 1);
+    conteúdosProjInicial();
+    
 } else {
-    conteúdosProjIniciais();
+    conteúdosProjExistentes();
 };
 
 //fx para abrir form de novo projecto
@@ -423,27 +475,28 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 
     ////criar o html da caixa do toDo com as propriedades do obj
     ////usar uma var nova com o obj apenas para o novo ToDo
-    let novoObjToDo = listaToDos.slice(-1);
+    let novoToDoArray = listaToDos.slice(-1);
+    let novoObjToDo = novoToDoArray[0];
 
     ////adicionar o toDo ao projecto
     projToDo.todos.push(novoObjToDo);
     console.log(listaProjectos);
 
     //atribuir o id do ToDo
-    toDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+    toDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
     //preencher os dados
-    títuloToDoHTML.textContent = novoObjToDo[0].título;
-    títuloToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    dataTérminoHTML.textContent = novoObjToDo[0].dataTérmino;
-    dataTérminoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    descriçãoHTML.textContent = novoObjToDo[0].descrição;
-    descriçãoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    prioridadeHTML.textContent = novoObjToDo[0].prioridade;
-    prioridadeHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    estadoToDoHTML.textContent = novoObjToDo[0].estado;
-    estadoToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
-    tarefasToDoHTML.textContent = novoObjToDo[0].tarefas;
-    tarefasToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+    títuloToDoHTML.textContent = novoObjToDo.título;
+    títuloToDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
+    dataTérminoHTML.textContent = novoObjToDo.dataTérmino;
+    dataTérminoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
+    descriçãoHTML.textContent = novoObjToDo.descrição;
+    descriçãoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
+    prioridadeHTML.textContent = novoObjToDo.prioridade;
+    prioridadeHTML.setAttribute("data-id", `${novoObjToDo.id}`);
+    estadoToDoHTML.textContent = novoObjToDo.estado;
+    estadoToDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
+    tarefasToDoHTML.textContent = novoObjToDo.tarefas;
+    tarefasToDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
 
     ////adicionar botões
     const botõesToDoHTML = document.createElement("div");
@@ -451,12 +504,12 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
     projToDoHTML.appendChild(botõesToDoHTML);
     const botãoEditarToDoHTML = document.createElement("button");
     botãoEditarToDoHTML.classList.add("botão-editar-todo");
-    botãoEditarToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+    botãoEditarToDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
     botãoEditarToDoHTML.textContent = "Editar";
     botõesToDoHTML.appendChild(botãoEditarToDoHTML);
     const botãoApagarToDoHTML = document.createElement("button");
     botãoApagarToDoHTML.classList.add("botão-apagar-todo");
-    botãoApagarToDoHTML.setAttribute("data-id", `${novoObjToDo[0].id}`);
+    botãoApagarToDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
     botãoApagarToDoHTML.textContent = "Apagar";
     botõesToDoHTML.appendChild(botãoApagarToDoHTML);
 
@@ -607,12 +660,10 @@ caixaProjectosHTML.addEventListener("click", (e) => {
 
         let teste;
         listaProjectos.forEach((e) => {
-            console.log(e.todos);
-         const teste = e.todos.findIndex((e) => e.título == "ToDo2");
-          console.log(teste);
+            console.log(e);
         });
 
-      
+
 
 
         //console.log(listaToDos);
