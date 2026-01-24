@@ -606,15 +606,13 @@ caixaProjectosHTML.addEventListener("click", (e) => {
         listaToDos.splice(indexToDoApagar, 1);
 
         let teste;
-        let teste1;
-        teste1 = listaProjectos.findIndex((e) => {
-            e.todos.forEach((e) => {
-              teste =  e.findIndex((e) => e.id == id);
-            });
+        listaProjectos.forEach((e) => {
+            console.log(e.todos);
+         const teste = e.todos.findIndex((e) => e.título == "ToDo2");
+          console.log(teste);
         });
 
-        console.log(teste)
-        console.log(teste1);
+      
 
 
         //console.log(listaToDos);
