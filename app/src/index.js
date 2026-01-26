@@ -661,24 +661,21 @@ caixaProjectosHTML.addEventListener("click", (e) => {
         listaToDos.splice(indexToDoApagar, 1);
 
         //apagar o todo do array dos projectos
-
         listaProjectos.forEach((e) => {
-            e.todos.forEach((e) => console.log(e));
-                const indexToDoRemoverProj = e.todos.findIndex((e) => e.id == id);
-                console.log(indexToDoRemoverProj);
-                //e.todos.splice(indexToDoRemoverProj, 1);
-                console.log(e.todos);
-
+            e.todos.forEach((e, i, a) => {
+                if (e.id == id) {
+                    a.splice(i, 1);
+                }
+            });
         });
-
 
         const textoSelectorApagar = `.todo[data-id='${id}']`;
         const todoApagarHTML = document.querySelector(textoSelectorApagar);
-        //todoApagarHTML.remove();
+        todoApagarHTML.remove();
 
         ////guardar os objectos
-        //localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
-        //localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
+        localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
+        localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
     }
 
 });
