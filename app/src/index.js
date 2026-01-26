@@ -650,9 +650,9 @@ caixaProjectosHTML.addEventListener("click", (e) => {
 
 ////fx para apagar ToDo
 caixaProjectosHTML.addEventListener("click", (e) => {
-    
+
     if (e.target.className == "botão-apagar-toodo") {
-        alert("clicou em apagar ToDo");
+
         const id = e.target.dataset.id;
 
         const indexToDoApagar = listaToDos.findIndex((e) => e.id == id);
@@ -661,22 +661,35 @@ caixaProjectosHTML.addEventListener("click", (e) => {
         listaToDos.splice(indexToDoApagar, 1);
 
         //apagar o todo do array dos projectos
-        
+
         listaProjectos.forEach((e) => {
-            e.todos.forEach((e) => console.log(e.id));
-            const indexToDoRemoverProj = e.todos.findIndex((e) => e.id == id);
-            e.todos.splice(indexToDoRemoverProj, 1);
+            e.todos.forEach((e) => console.log(e));
+                const indexToDoRemoverProj = e.todos.findIndex((e) => e.id == id);
+                console.log(indexToDoRemoverProj);
+                //e.todos.splice(indexToDoRemoverProj, 1);
+                console.log(e.todos);
+
         });
 
-    
+
         const textoSelectorApagar = `.todo[data-id='${id}']`;
         const todoApagarHTML = document.querySelector(textoSelectorApagar);
-        todoApagarHTML.remove();
+        //todoApagarHTML.remove();
 
         ////guardar os objectos
-        localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
-        localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
+        //localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
+        //localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
     }
 
 });
+
+//fx para apagar Projecto
+caixaProjectosHTML.addEventListener("click", (e) => {
+    if (e.target.className == "apagar-proj") {
+
+        const idProj = e.target.dataset.id;
+        console.log(idProj)
+
+    }
+})
 
