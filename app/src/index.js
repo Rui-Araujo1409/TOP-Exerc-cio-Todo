@@ -4,7 +4,6 @@ import ToDo from "./todos.js";
 import "./styles.css";
 import { format, compareAsc } from "date-fns";
 
-
 //vars com os arrays dos conteúdos Utilizadores, Projectos e ToDos
 let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
 let listaToDos = JSON.parse(localStorage.getItem("listaToDos"));
@@ -133,7 +132,7 @@ const conteúdosProjExistentes = () => {
         utilizadoresProjHTML.classList.add("utilizadores");
         infoProjHTML.appendChild(utilizadoresProjHTML);
         utilizadoresProjHTML.setAttribute("data-id", `${dataID}`);
-        utilizadoresProjHTML.textContent = `${e.utilizador}`;
+        utilizadoresProjHTML.textContent = `${e.utilizadores}`;
 
         //toDos projecto
         if (e.todos.length > 0) {
@@ -258,15 +257,16 @@ botãoGuardarNovoProjHTML.addEventListener("click", () => {
     infoProjNovoHTML.appendChild(utilizadoresProjNovoHTML);
     utilizadoresProjNovoHTML.textContent = novoProj[0].utilizadores;
 
-    const caixaToDos = document.createElement("div");
+   /*  const caixaToDos = document.createElement("div");
     projecto.appendChild(caixaToDos);
     caixaToDos.classList.add("todo");
-    caixaToDos.textContent = "Caixa dos ToDos";
+    caixaToDos.textContent = "Caixa dos ToDos"; */
     const criarToDo = document.createElement("div");
     criarToDo.classList.add("criar-todo");
     projecto.appendChild(criarToDo);
     const botãoCriarToDo = document.createElement("button");
     botãoCriarToDo.classList.add("botão-criar-todo");
+    botãoCriarToDo.setAttribute("data-id", `${novoProj[0].id}`);
     criarToDo.appendChild(botãoCriarToDo);
     botãoCriarToDo.textContent = "Criar novo ToDo";
 
@@ -283,8 +283,6 @@ botãoGuardarNovoProjHTML.addEventListener("click", () => {
     botãoApagarProjHML.classList.add("apagar-proj");
     botãoApagarProjHML.setAttribute("data-id", `${novoProj[0].id}`);
     botãoApagarProjHML.textContent = "Apagar Projecto";
-
-
 
     localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
 
@@ -480,7 +478,6 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 
     ////adicionar o toDo ao projecto
     projToDo.todos.push(novoObjToDo);
-    console.log(listaProjectos);
 
     //atribuir o id do ToDo
     toDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
@@ -684,8 +681,32 @@ caixaProjectosHTML.addEventListener("click", (e) => {
 caixaProjectosHTML.addEventListener("click", (e) => {
     if (e.target.className == "apagar-proj") {
 
-        const idProj = e.target.dataset.id;
-        console.log(idProj)
+      const idProj = e.target.dataset.id;
+
+      listaProjectos.forEach((e,i,a) => {
+        if(e.id == idProj) {
+            e.todos.forEach((e) => {
+                const id = e.id;
+                listaToDos.forEach((e,i,a) => {
+                    if(e.id == id) {
+                        a.splice(i,1);
+                    }
+                });
+            });
+            a.splice(i,1);
+        }
+      });
+
+      console.log(listaToDos);
+      console.log(listaProjectos);
+
+      const textoSelectorApagar = `.projecto[data-id='${idProj}']`;
+      const projApagarHTML = document.querySelector(textoSelectorApagar);
+      projApagarHTML.remove();
+
+        ////guardar os objectos
+        localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
+        localStorage.setItem("listaProjectos", JSON.stringify(listaProjectos));
 
     }
 })

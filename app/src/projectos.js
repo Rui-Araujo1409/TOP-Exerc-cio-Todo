@@ -25,4 +25,9 @@ export default class Projecto {
       this.todos.splice(index, 1);
     }
   }
+
+  limparToDos() {
+    this.todos = [];
+  }
+
 }
