@@ -4,12 +4,11 @@ import ToDo from "./todos.js";
 import "./styles.css";
 import { format, compareAsc } from "date-fns";
 
+
 //vars com os arrays dos conteúdos Utilizadores, Projectos e ToDos
 let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
 let listaToDos = JSON.parse(localStorage.getItem("listaToDos"));
 let utilizador;
-
-
 
 //elementos html
 ///Projecto
@@ -172,11 +171,19 @@ const conteúdosProjExistentes = () => {
                 estadoToDoHTML.classList.add("estado");
                 toDoHTML.appendChild(estadoToDoHTML);
                 estadoToDoHTML.textContent = objToDo.estado;
+
                 ///tarefas ToDo
-                const tarefasToDoHTML = document.createElement("div");
+                const tarefasToDoHTML = document.createElement("ul");
                 tarefasToDoHTML.classList.add("tarefas");
                 toDoHTML.appendChild(tarefasToDoHTML);
-                tarefasToDoHTML.textContent = objToDo.tarefas;
+                tarefasToDoHTML.textContent = "Tarefas:"
+                e.tarefas.forEach((e) => {
+                    const itemTarefaHTML = document.createElement("li");
+                    itemTarefaHTML.classList.add("item-tarefa");
+                    tarefasToDoHTML.appendChild(itemTarefaHTML);
+                    itemTarefaHTML.setAttribute("data-id", `${objToDo.id}`);
+                    itemTarefaHTML.textContent = `${e}`;
+                })
 
                 ///atrbuir os id nos campos
                 títuloToDoHTML.setAttribute("data-id", `${objToDo.id}`);
@@ -184,7 +191,7 @@ const conteúdosProjExistentes = () => {
                 descriçãoHTML.setAttribute("data-id", `${objToDo.id}`);
                 prioridadeHTML.setAttribute("data-id", `${objToDo.id}`);
                 estadoToDoHTML.setAttribute("data-id", `${objToDo.id}`);
-                tarefasToDoHTML.setAttribute("data-id", `${objToDo.id}`);
+                //tarefasToDoHTML.setAttribute("data-id", `${objToDo.id}`);
 
                 //criar os botões
                 const botõesToDoHTML = document.createElement("div");
@@ -257,10 +264,6 @@ botãoGuardarNovoProjHTML.addEventListener("click", () => {
     infoProjNovoHTML.appendChild(utilizadoresProjNovoHTML);
     utilizadoresProjNovoHTML.textContent = novoProj[0].utilizadores;
 
-   /*  const caixaToDos = document.createElement("div");
-    projecto.appendChild(caixaToDos);
-    caixaToDos.classList.add("todo");
-    caixaToDos.textContent = "Caixa dos ToDos"; */
     const criarToDo = document.createElement("div");
     criarToDo.classList.add("criar-todo");
     projecto.appendChild(criarToDo);
@@ -438,9 +441,11 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
     toDoHTML.appendChild(estadoToDoHTML);
 
     ////HTML para tarefas ToDo
-    const tarefasToDoHTML = document.createElement("div");
+    ///tarefas ToDo
+    const tarefasToDoHTML = document.createElement("ul");
     tarefasToDoHTML.classList.add("tarefas");
     toDoHTML.appendChild(tarefasToDoHTML);
+    tarefasToDoHTML.textContent = "Tarefas:"
 
     ////input título ToDo
     títuloToDo = inputTítuloToDoHTML.value;
@@ -494,6 +499,14 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
     estadoToDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
     tarefasToDoHTML.textContent = novoObjToDo.tarefas;
     tarefasToDoHTML.setAttribute("data-id", `${novoObjToDo.id}`);
+
+    novoObjToDo.tarefas.forEach((e) => {
+        const itemTarefaHTML = document.createElement("li");
+        itemTarefaHTML.classList.add("item-tarefa");
+        tarefasToDoHTML.appendChild(itemTarefaHTML);
+        itemTarefaHTML.setAttribute("data-id", `${objToDo.id}`);
+        itemTarefaHTML.textContent = `${e}`;
+    })
 
     ////adicionar botões
     const botõesToDoHTML = document.createElement("div");
@@ -565,7 +578,7 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
     const selectorDescrição = `.descrição-todo[data-id='${dataId}']`;
     const selectorPrioridade = `.prioridade[data-id='${dataId}']`;
     const selectorEstado = `.estado[data-id='${dataId}']`;
-    const selectorTarefas = `.tarefas[data-id='${dataId}']`;
+
 
     ///seleccionar os elementos HTML correctos (com o data-id)
     const títuloToDoHTML = document.querySelector(selectorTítulo);
@@ -573,7 +586,7 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
     const descriçãoHTML = document.querySelector(selectorDescrição);
     const prioridadeHTML = document.querySelector(selectorPrioridade);
     const estadoToDoHTML = document.querySelector(selectorEstado);
-    const tarefasToDoHTML = document.querySelector(selectorTarefas);
+
 
     ////input título ToDo
     títuloToDo = inputEditarTítuloToDo.value;
@@ -615,7 +628,13 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
     descriçãoHTML.textContent = listaToDos[indexObjEditar].descrição;
     prioridadeHTML.textContent = listaToDos[indexObjEditar].prioridade;
     estadoToDoHTML.textContent = listaToDos[indexObjEditar].estado;
-    tarefasToDoHTML.textContent = listaToDos[indexObjEditar].tarefas;
+
+    tarefasToDo.forEach((e) => {
+        const selectorTarefas = `.item-tarefa[data-id='${dataId}']`;
+        const tarefasToDoHTML = document.querySelector(selectorTarefas);
+        tarefasToDoHTML.textContent = `${e}`;
+    })
+
 
     ////guardar os objectos
     /*  localStorage.setItem("listaToDos", JSON.stringify(listaToDos)); */
@@ -681,28 +700,28 @@ caixaProjectosHTML.addEventListener("click", (e) => {
 caixaProjectosHTML.addEventListener("click", (e) => {
     if (e.target.className == "apagar-proj") {
 
-      const idProj = e.target.dataset.id;
+        const idProj = e.target.dataset.id;
 
-      listaProjectos.forEach((e,i,a) => {
-        if(e.id == idProj) {
-            e.todos.forEach((e) => {
-                const id = e.id;
-                listaToDos.forEach((e,i,a) => {
-                    if(e.id == id) {
-                        a.splice(i,1);
-                    }
+        listaProjectos.forEach((e, i, a) => {
+            if (e.id == idProj) {
+                e.todos.forEach((e) => {
+                    const id = e.id;
+                    listaToDos.forEach((e, i, a) => {
+                        if (e.id == id) {
+                            a.splice(i, 1);
+                        }
+                    });
                 });
-            });
-            a.splice(i,1);
-        }
-      });
+                a.splice(i, 1);
+            }
+        });
 
-      console.log(listaToDos);
-      console.log(listaProjectos);
+        console.log(listaToDos);
+        console.log(listaProjectos);
 
-      const textoSelectorApagar = `.projecto[data-id='${idProj}']`;
-      const projApagarHTML = document.querySelector(textoSelectorApagar);
-      projApagarHTML.remove();
+        const textoSelectorApagar = `.projecto[data-id='${idProj}']`;
+        const projApagarHTML = document.querySelector(textoSelectorApagar);
+        projApagarHTML.remove();
 
         ////guardar os objectos
         localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
