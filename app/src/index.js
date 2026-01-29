@@ -9,6 +9,7 @@ import { format, compareAsc } from "date-fns";
 let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
 let listaToDos = JSON.parse(localStorage.getItem("listaToDos"));
 let utilizador;
+console.log(listaToDos)
 
 //elementos html
 ///Projecto
@@ -455,6 +456,7 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
 
     ////input data término ToDo
     dataTérminoToDo = inputDataToDoHTML.value;
+    dataTérminoToDo = format(dataTérminoToDo, "dd/MM/yyyy");
 
     ////input prioridade ToDo, obter nome e obter o valor do elemento seleccionado com o método checked
     //vai dar um NodeList => converter para um array
@@ -504,7 +506,7 @@ botãoGuardarNovoToDoHTML.addEventListener("click", () => {
         const itemTarefaHTML = document.createElement("li");
         itemTarefaHTML.classList.add("item-tarefa");
         tarefasToDoHTML.appendChild(itemTarefaHTML);
-        itemTarefaHTML.setAttribute("data-id", `${objToDo.id}`);
+        itemTarefaHTML.setAttribute("data-id", `${novoObjToDo.id}`);
         itemTarefaHTML.textContent = `${e}`;
     })
 
@@ -559,9 +561,12 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
 
     ///buscar o id do ToDo através do ID do botão editar
     const dataId = formulárioEditarToDoHTML.dataset.id;
+    console.log(dataId);
+    listaToDos.forEach((e) => console.log(e));
 
     ////pesquisar no array listaToDos o obj com o ID e obter o index
     const indexObjEditar = listaToDos.findIndex(item => item.id == dataId);
+    console.log(indexObjEditar);
 
     ///guardar o valor dos inputs (em vars?)
     ////vars para os dados do ToDo
@@ -596,6 +601,8 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
 
     ////input data término ToDo
     dataTérminoToDo = inputEditarDataToDo.value;
+    dataTérminoToDo = format(dataTérminoToDo, "dd/MM/yyyy");
+    console.log(dataTérminoToDo);
 
     ////input prioridade ToDo, obter nome e obter o valor do elemento seleccionado com o método checked
     //vai dar um NodeList => converter para um array
@@ -637,7 +644,7 @@ botãoGuardarEditarToDoHTML.addEventListener("click", (e) => {
 
 
     ////guardar os objectos
-    /*  localStorage.setItem("listaToDos", JSON.stringify(listaToDos)); */
+     localStorage.setItem("listaToDos", JSON.stringify(listaToDos));
 
     ////fechar o modal quando clica guardar
     /*   formulárioCriarToDoHTML.close(); */
