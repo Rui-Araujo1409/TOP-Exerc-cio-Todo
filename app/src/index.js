@@ -1,9 +1,12 @@
 
 import Projecto from "./projectos.js";
 import ToDo from "./todos.js";
+//import {fxTeste, fxTeste2} from "./teste.js";
 import "./styles.css";
 import { format, compareAsc } from "date-fns";
 
+/* fxTeste();
+fxTeste2(); */
 
 //vars com os arrays dos conteúdos Utilizadores, Projectos e ToDos
 let listaProjectos = JSON.parse(localStorage.getItem("listaProjectos"));
